@@ -96,6 +96,12 @@ class C_tintuc{
         $chitietOrder = $m_tintuc->getChiTietOrder($id_order);
         return array('chitietOrder'=>$chitietOrder);
     }
+    public function Cancel(){
+        $id_order = $_GET['cancel'];
+        $m_tintuc = new M_tintuc();
+        $StatusOrder = $m_tintuc->updateStatusCancel($id_order);
+        return array('StatusOrder'=>$StatusOrder);
+    }
 
 
 }
