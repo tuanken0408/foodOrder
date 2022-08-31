@@ -11,7 +11,11 @@ $staus = array(
         1 => "Đang đặt",
         2 => "Đã đặt",
         3 => "Đã chuyển khoản",
+        4 => "Đã hủy",
 );
+if (isset($_GET['cancel'])){
+    $chitietOrder = $c_tintuc->Cancel();
+}
 if(isset($_POST['them'])){
     $HoTen = $_POST['hoten'];
     $SoLuong = $_POST['soluong'];
@@ -165,13 +169,15 @@ if(isset($_POST['them'])){
                                                 <td><?= $u->Mota; ?></td>
                                                 <td><?= number_format($u->TongTien, 0, '.', ','); ?> đ</td>
                                                 <td>
-                                                    <?php if ($u->Status_od == 1){ ?>
+                                                    <?php if ($u->Status_od == 1): ?>
                                                         <span class="label label-primary"><?= $staus[$u->Status_od]; ?></span>
-                                                    <?php } ?>
+                                                    <?php elseif ($u->Status_od == 4): ?>
+                                                        <span class="label label-danger"><?= $staus[$u->Status_od]; ?></span>
+                                                    <?php endif; ?>
                                                 </td>
                                                 <td>
                                                     <a href="?view=order/sua&id=<?php echo $u->id?>" class="label label-primary">Sửa</a>
-                                                    <a href="?view=order/sua&id=<?php echo $u->id?>" class="label label-danger">Hủy</a>
+                                                    <a href="?cancel=<?php echo $u->id?>" class="label label-danger" Onclick="confirm_delete('<?= $u->HoTen; ?>')">Hủy</a>
                                                     <a href="?view=order/sua&id=<?php echo $u->id?>" class="label label-warning">Tôi đã chuyển tiền</a>
                                                 </td>
                                             </tr>
@@ -211,6 +217,13 @@ if(isset($_POST['them'])){
 <script src="public/js/bootstrap.min.js"></script>
 <script src="public/js/my.js"></script>
 <script>
+    function confirm_delete(name){
+        if(confirm("Bạn là" + " " +name+ "? " + "Bạn có muốn hủy suất cơm này không ?") === true){
+            return true;
+        }else{
+            return false;
+        }
+    }
     $(document).ready(function () {
         $("#btnSearch").click(function () {
             var keyword = $('#txtSearch').val();
