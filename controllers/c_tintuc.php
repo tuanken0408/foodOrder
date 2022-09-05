@@ -102,6 +102,12 @@ class C_tintuc{
         $StatusOrder = $m_tintuc->updateStatusCancel($id_order);
         return array('StatusOrder'=>$StatusOrder);
     }
+    public function Success(){
+        $id_order = $_GET['success'];
+        $m_tintuc = new M_tintuc();
+        $StatusSuccess = $m_tintuc->updateStatusSuccess($id_order);
+        return array('StatusSuccess'=>$StatusSuccess);
+    }
 
 
 }

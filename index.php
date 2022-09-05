@@ -15,6 +15,8 @@ $staus = array(
 );
 if (isset($_GET['cancel'])){
     $chitietOrder = $c_tintuc->Cancel();
+}else if (isset($_GET['success'])){
+    $success = $c_tintuc->Success();
 }
 if(isset($_POST['them'])){
     $HoTen = $_POST['hoten'];
@@ -175,16 +177,25 @@ if(isset($_POST['them'])){
                                                         <span class="label label-primary"><?= $staus[$u->Status_od]; ?></span>
                                                     <?php elseif ($u->Status_od == 4): ?>
                                                         <span class="label label-danger"><?= $staus[$u->Status_od]; ?></span>
+                                                    <?php elseif ($u->Status_od == 3): ?>
+                                                        <span class="label label-success"><?= $staus[$u->Status_od]; ?></span>
                                                     <?php endif; ?>
                                                 </td>
                                                 <td>
                                                     <a href="?view=order/sua&id=<?php echo $u->id?>" class="label label-primary">Sửa</a>
+
                                                     <?php if ($u->Status_od == 4): ?>
                                                     <!--ẩn button hủy-->
                                                     <?php elseif ($u->Status_od == 1): ?>
                                                         <a  href="?cancel=<?php echo $u->id?>" class="label label-danger" Onclick="confirm_delete('<?= $u->HoTen; ?>')">Hủy</a>
                                                     <?php endif; ?>
-                                                    <a href="?view=order/sua&id=<?php echo $u->id?>" class="label label-warning">Tôi đã chuyển tiền</a>
+
+
+                                                    <?php if ($u->Status_od == 3): ?>
+                                                    <!--ẩn button hủy-->
+                                                    <?php elseif ($u->Status_od == 1): ?>
+                                                    <a href="?success=<?php echo $u->id?>" class="label label-warning" Onclick="confirm_success('<?= $u->HoTen; ?>')">Tôi đã chuyển tiền</a>
+                                                    <?php endif; ?>
                                                 </td>
                                             </tr>
                                             <?php $t+=1; }
@@ -225,6 +236,13 @@ if(isset($_POST['them'])){
 <script>
     function confirm_delete(name){
         if(confirm("Bạn là" + " " +name+ "? " + "Bạn có muốn hủy suất cơm này không ?") === true){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function confirm_success(name){
+        if(confirm("Bạn là" + " " +name+ "? " + "Bạn xác nhận đã thanh toán ?") === true){
             return true;
         }else{
             return false;
