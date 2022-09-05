@@ -179,7 +179,11 @@ if(isset($_POST['them'])){
                                                 </td>
                                                 <td>
                                                     <a href="?view=order/sua&id=<?php echo $u->id?>" class="label label-primary">Sửa</a>
-                                                    <a href="?cancel=<?php echo $u->id?>" class="label label-danger" Onclick="confirm_delete('<?= $u->HoTen; ?>')">Hủy</a>
+                                                    <?php if ($u->Status_od == 4): ?>
+                                                    <!--ẩn button hủy-->
+                                                    <?php elseif ($u->Status_od == 1): ?>
+                                                        <a  href="?cancel=<?php echo $u->id?>" class="label label-danger" Onclick="confirm_delete('<?= $u->HoTen; ?>')">Hủy</a>
+                                                    <?php endif; ?>
                                                     <a href="?view=order/sua&id=<?php echo $u->id?>" class="label label-warning">Tôi đã chuyển tiền</a>
                                                 </td>
                                             </tr>
