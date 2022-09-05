@@ -120,5 +120,10 @@ class M_tintuc extends database{
         $this->setQuery($sql);
         return $this->loadRow(array($id));
     }
+    public function updateStatusSuccess($id){
+        $sql = "UPDATE order_user SET Status_od = 3 WHERE id = $id";
+        $this->setQuery($sql);
+        return $this->loadRow(array($id));
+    }
 }
 ?>
