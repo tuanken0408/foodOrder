@@ -110,12 +110,30 @@ class M_tintuc extends database{
         $this->setQuery($sql);
         return $this->execute(array ($HoTen,$SoLuong,$TongTien,$MoTa,$Status_od,'$MaMenu'));
     }
+    public function updateOrderUser($id,$HoTen,$SoLuong,$TongTien,$Mota){
+        $sql = "SELECT *FROM order_user WHERE  id = $id";
+        if($id>-1){
+            $sql = "UPDATE order_user SET HoTen='$HoTen',SoLuong='$SoLuong',
+                                    TongTien='$TongTien',Mota='$Mota'
+                                    WHERE  id = '$id'";
+        }
+        $this->setQuery($sql);
+        return $this->execute(array($id,$HoTen,$SoLuong,$TongTien,$Mota));
+    }
     public function getChiTietOrder($id){
         $sql = "SELECT *FROM order_user WHERE id = $id";
         $this->setQuery($sql);
         return $this->loadRow(array($id));
     }
-    public function updateStatusCancel($id){
+
+    public function getHinhMenu(){
+        $MaMenu = date('dmY');
+        $sql = "SELECT mn.Hinh
+            FROM menu AS mn WHERE mn.MaMenu = '$MaMenu'";
+        $this->setQuery($sql);
+        return $this->loadRow(array());
+    }
+        public function updateStatusCancel($id){
         $sql = "UPDATE order_user SET Status_od = 4 WHERE id = $id";
         $this->setQuery($sql);
         return $this->loadRow(array($id));

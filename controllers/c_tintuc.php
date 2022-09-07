@@ -96,6 +96,11 @@ class C_tintuc{
         $chitietOrder = $m_tintuc->getChiTietOrder($id_order);
         return array('chitietOrder'=>$chitietOrder);
     }
+    public function getHinhMenu(){
+        $m_tintuc = new M_tintuc();
+        $chitietOrder = $m_tintuc->getHinhMenu();
+        return array('getHinhMenu'=>$chitietOrder);
+    }
     public function Cancel(){
         $id_order = $_GET['cancel'];
         $m_tintuc = new M_tintuc();
@@ -103,11 +108,29 @@ class C_tintuc{
         return array('StatusOrder'=>$StatusOrder);
     }
     public function Success(){
-        $id_order = $_GET['success'];
+        $id_order = $_GET['success_ck'];
         $m_tintuc = new M_tintuc();
         $StatusSuccess = $m_tintuc->updateStatusSuccess($id_order);
         return array('StatusSuccess'=>$StatusSuccess);
     }
+    public function updateOrder($id,$HoTen,$SoLuong,$TongTien,$Mota){
+        $m_tintuc = new M_tintuc();
+        $sua = $m_tintuc->updateOrderUser($id,$HoTen,$SoLuong,$TongTien,$Mota);
+        if (isset($_SESSION['them_win'])){
+            unset($_SESSION['them_win']);
+        }
+        if ($sua >0){
+            $_SESSION['sua_win']="Sửa thành công";
+            header('location:?success=ok');
+            if (isset($_SESSION['error'])){
+                unset($_SESSION['error']);
+            }
+        }else{
+            $_SESSION['error'] = "Sửa ko thành công";
+            header('ocation:?success=notok');
+        }
+    }
+
 
 
 }
