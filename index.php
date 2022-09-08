@@ -10,11 +10,14 @@ $slide = $noi_dung['slide'];
 $menu = $noi_dung['menu'];
 $image_menu = $noi_dung['image'];
 
+$chot = true;
+
 $staus = array(
         1 => "Đang đặt",
         2 => "Đã hoàn tất thanh toán",
         3 => "Đã chuyển khoản, chờ xác nhận",
         4 => "Đã hủy",
+        5 => "Chưa thanh toán",
 );
 
 if (isset($_GET['cancel'])){
@@ -48,8 +51,8 @@ if(isset($_POST['them'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> Anh Đức - Trang chủ</title>
-
+    <title> Đặt cơm - Ngân Lượng</title>
+    <link rel="icon" type="image/x-icon" href="public/image/favicon.ico">
     <!-- Bootstrap Core CSS -->
     <link href="public/css/bootstrap.min.css" rel="stylesheet">
 
@@ -130,8 +133,31 @@ if(isset($_POST['them'])){
                     <h2 style="font-weight: bold; color: red">ĐẶT CƠM NGÀY <?= date('d/m/Y'); ?> (<span id="demo_timer">10h30</span>)</h2>
                     <blockquote class="font12">
                         <h5 class="mrtop0 bold blueFont"><i class="glyphicon glyphicon-info-sign"></i> Lưu ý:</h5>
-                        <h5>- Văn minh lịch sử, không sửa hàng của đồng nghiệp.</h5>
+                        <h5>- Văn minh lịch sự, không sửa hàng của đồng nghiệp.</h5>
                         <h5>- Thời hạn đăng ký đến 10h40 hằng ngày.</h5>
+                        <h5><strong style="color: red;">STK Nhận tiền: 19036581222012 - Tech - BUI ANH DUC or <a
+                                        href="#" id="pop2" data-src="public/image/QR.jpg" >Quét mã QR</a></strong></h5>
+
+<!--                        <a href="#" id="pop">-->
+<!--                            <img id="imageresource" src="public/image/menu/--><?php //echo $image_menu->HinhMenu ?><!--" style="max-height: 600px; float: right">-->
+<!--                        </a>-->
+<!---->
+                        <!-- Creates the bootstrap modal where the image will appear -->
+                        <div class="modal fade" id="imagemodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="width: 550px">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="" id="priview2" style="max-height: 1000px;" >
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">X</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </blockquote>
                     <div class="form-group">
                         <label for="hoten">Họ và tên</label>
@@ -154,7 +180,13 @@ if(isset($_POST['them'])){
                     <!--                       <label for="soluong">Bonus</label>-->
                     <!--                       <input type="text" class="form-control" name="bonus" id="bonus" placeholder="1">-->
                     <!--                   </div>-->
-                    <button type="submit" class="btn btn-primary" name="them">Xác nhận</button>
+                    <?php if ($chot){ ?>
+                        <button class="btn btn-primary" disabled>Đã chốt cơm</button>
+
+                    <?php }else{ ?>
+                        <button type="submit" class="btn btn-primary" name="them">Xác nhận</button>
+
+                    <?php } ?>
                     <a href="#list_user" class="btn btn-success">Danh sách order hôm nay</a>
                 </form>
             </div>
@@ -163,19 +195,20 @@ if(isset($_POST['them'])){
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <?php
                     $date_arr = array();
-                    for ($i = 0; $i<1; $i++ ){
+                    for ($i = 0; $i<2; $i++ ){
                         $key = date('dmY', strtotime('-'.$i.' days'));
                         $date_arr[$key] = date('d/m/Y', strtotime('-'.$i.' days'));
                     }
                     foreach ($date_arr as $drk => $drv ){ ?>
                         <li class="nav-item <?php if ($drk == date('dmY')){ echo 'active';} ?>">
-                            <a class="nav-link" id="<?= $drk ?>-tab" data-toggle="tab" href="#<?= $drk ?>" role="tab" aria-controls="<?= $drk ?>" aria-selected="true"><?= $drv; ?></a>
+                            <a class="nav-link" id="<?= $drk ?>-tab" data-toggle="tab" href="#<?= $drk ?>" role="tab" aria-controls="<?= $drk ?>" aria-selected="true"><?= $drv; ?><?php if($drk == '07092022'){echo ' <span style="color:red;">(Chưa hoàn tất)</span>';} ?></a>
                         </li>
                     <?php }
                     ?>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <?php
+                    $tt = 1;
                     foreach ($date_arr as $drk => $drv ){
                         $noi_dung_user = $c_tintuc->index2($drk);
                         $user = $noi_dung_user['user']; ?>
@@ -196,6 +229,8 @@ if(isset($_POST['them'])){
                                 <tbody>
                                 <?php
                                 $t = 1;
+                                $t_TongTien = 0;
+                                $t_SoLuong = 0;
                                 if (count($user) > 0){
                                     foreach ($user as $u){  ?>
                                         <tr>
@@ -205,6 +240,15 @@ if(isset($_POST['them'])){
                                             <td><?= $u->Mota; ?></td>
                                             <td><?= number_format($u->TongTien, 0, '.', ','); ?> đ</td>
                                             <td>
+
+<!--                                                1 => "Đang đặt",-->
+<!--                                                2 => "Đã hoàn tất thanh toán",-->
+<!--                                                3 => "Đã chuyển khoản, chờ xác nhận",-->
+<!--                                                4 => "Đã hủy",-->
+<!--                                                5 => "Chưa thanh toán",-->
+                                                <?php if ($chot && $tt == 1){ ?>
+                                                    <span class="label label-default">Đã chốt cơm</span>
+                                                <?php } ?>
                                                 <?php if ($u->Status_od == 1): ?>
                                                     <span class="label label-primary"><?= $staus[$u->Status_od]; ?></span>
                                                 <?php elseif ($u->Status_od == 4): ?>
@@ -213,36 +257,45 @@ if(isset($_POST['them'])){
                                                     <span class="label label-warning"><?= $staus[$u->Status_od]; ?></span>
                                                 <?php elseif ($u->Status_od == 2): ?>
                                                     <span class="label label-success"><?= $staus[$u->Status_od]; ?></span>
+                                                <?php elseif ($u->Status_od == 5): ?>
+                                                    <span class="label label-danger"><?= $staus[$u->Status_od]; ?></span>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <?php if ($u->Status_od == 1){ ?>
+                                                <?php if ($u->Status_od == 1 && !$chot){ ?>
                                                     <a href="?view=order/sua&id=<?php echo $u->id?>" class="label label-primary">Sửa</a>
                                                 <?php } ?>
 
-                                                <?php if ($u->Status_od == 4): ?>
+                                                <?php if ($u->Status_od == 4 && !$chot): ?>
                                                     <a href="index.php" class="label label-primary">Đặt lại</a>
-                                                <?php elseif ($u->Status_od == 1): ?>
+                                                <?php elseif ($u->Status_od == 1 && !$chot): ?>
                                                     <a  class="label label-danger" title="Hủy ko đặt nữa" Onclick="confirm_delete('<?= $u->HoTen; ?>','<?= $u->id; ?>')">Hủy</a>
                                                 <?php endif; ?>
 
 
                                                 <?php if ($u->Status_od == 3): ?>
                                                     <!--ẩn button hủy-->
-                                                <?php elseif ($u->Status_od == 1): ?>
+                                                <?php elseif ($u->Status_od == 1 || $u->Status_od == 5): ?>
                                                     <a class="label label-warning" title="Ai đã chuyển khoản cho em thì submit button này để e check" Onclick="confirm_success('<?= $u->HoTen; ?>','<?= $u->id; ?>')">Tôi đã chuyển tiền</a>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
-                                        <?php $t+=1; }
-                                }else{ ?>
+                                        <?php $t+=1; $t_TongTien = $t_TongTien + $u->TongTien; $t_SoLuong = $t_SoLuong + $u->SoLuong; } ?>
+                                    <tr>
+                                        <td></td>
+                                        <td><strong>Tổng số suất</strong></td>
+                                        <td><strong><?= $t_SoLuong; ?></strong></td>
+                                        <td><strong>Tổng tiền</strong></td>
+                                        <td><strong><?= number_format($t_TongTien, 0, '.', ','); ?> đ</strong></td>
+                                    </tr>
+                                <?php }else{ ?>
                                     <tr><td colspan="7">Không có dữ liệu của ngày này</td></tr>
                                 <?php }
                                 ?>
                                 </tbody>
                             </table>
                         </div>
-                    <?php }
+                    <?php $tt+=1; }
                     ?>
                 </div>
             </div>
@@ -303,6 +356,10 @@ if(isset($_POST['them'])){
     $("#pop").on("click", function() {
         $('#imagepreview').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
         $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+    });
+    $("#pop2").on("click", function() {
+        $('#priview2').attr('src', $('#pop2').attr('data-src')); // here asign the image to the modal when the user click the enlarge link
+        $('#imagemodal2').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
     });
 </script>
 </body>

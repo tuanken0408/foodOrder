@@ -29,6 +29,7 @@ if(isset($_POST['sua'])){
     <title> Anh Đức - Trang chủ</title>
 
     <!-- Bootstrap Core CSS -->
+    <link rel="icon" type="image/x-icon" href="public/image/favicon.ico">
     <link href="public/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
