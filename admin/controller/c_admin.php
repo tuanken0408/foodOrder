@@ -63,6 +63,7 @@ class C_admin{
     public function getMenuAd(){
         $m_admin = new M_admin();
         $menu = $m_admin->getMenuAdmin();
+
         //phân trang bài viết admin
         $trang_hientai = (isset($_GET['page']))?$_GET['page']:1;
         $pagination = new pagination(count($menu),$trang_hientai,5,3);
@@ -71,7 +72,6 @@ class C_admin{
         $limit = $pagination->_nItemOnPage;
         $vitri = ($trang_hientai-1)*$limit;
         $menu = $m_admin->getMenuAdmin($vitri,$limit);
-
         return array('menu'=>$menu,'thanhphantrang'=>$paginationHTML);
     }
     public function editMenu($id,$TieuDe,$TieuDeKhongDau,$Hinh,$TomTat){
@@ -118,6 +118,16 @@ class C_admin{
         }else{
             return array('menubyid'=>'');
         }
+    }
+    public function getUserOrder($date=0)
+    {
+        $m_admin = new M_admin();
+        $user = $m_admin->getUserOrder($date);
+        return array('user'=>$user);
+    }
+    public function confirmFinish(){
+        $m_admin = new M_admin();
+        $m_admin->confirmFinish();
     }
 
     public function stripUnicode($str){

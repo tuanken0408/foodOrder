@@ -19,6 +19,11 @@ $menubyid = $noidung6['menubyid'];
 
 $noidung5 = $c_admin->getMenuAd();
 $menu = $noidung5['menu'];
+
+if (isset($_GET['confirm_finish'])){
+    $c_admin->confirmFinish();
+}
+
 //print_r($list);
 
 
@@ -50,11 +55,10 @@ if (!isset( $_SESSION['id_user'])){
     <link href="../public/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../public/css/adminstyle.css">
     <script src="ckeditor/ckeditor.js" type="text/javascript"></script>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+    <script src="../public/js/jquery.js">sss</script>
+    <script src="../public/js/bootstrap.min.js"></script>
+    <script src="../public/js/my.js"></script>
     <![endif]-->
 </head>
 <body>
@@ -79,16 +83,22 @@ if (!isset( $_SESSION['id_user'])){
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
+                    <li>
+                        <a href="?view=menu/ds&confirm_finish=<?=date('dmY')?>" >Admin Chốt cơm hôm nay <?php echo date('d - m - Y') ?></a>
+                    </li>
                     <li class="">
                         <a href="?view=menu/ds">Menu Đồ ăn</a>
                     </li>
                     <li class="">
-                        <a href="?view=theloai/ds">Thể loại</a>
+                        <a href="?view=order/ds">Danh sách Order</a>
                     </li>
-
-                    <li class="">
-                        <a href="?view=baiviet/ds">Tin tức</a>
-                    </li>
+<!--                    <li class="">-->
+<!--                        <a href="?view=theloai/ds">Thể loại</a>-->
+<!--                    </li>-->
+<!---->
+<!--                    <li class="">-->
+<!--                        <a href="?view=baiviet/ds">Tin tức</a>-->
+<!--                    </li>-->
                     <li class="">
                         <a href="../dangxuat.php">Đăng Xuất</a>
                     </li>
@@ -110,5 +120,15 @@ if (!isset( $_SESSION['id_user'])){
         ?>
     </div>
 </div>
+<script>
+    function confirm_finish(){
+        if(confirm("Chốt cơm hôm nay") === true){
+            window.location.href = '?view=menu/ds&confirm_finish=1';
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
 </body>
 </html>

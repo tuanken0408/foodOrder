@@ -47,11 +47,11 @@ class M_admin extends database{
     }
     public function getMenuAdmin($vitri=-1,$limit=-1){
         $sql = "SELECT mn.id,mn.TieuDe,mn.TieuDeKhongDau,mn.TomTat,mn.Hinh
-            FROM menu AS mn ";
-
+            FROM menu AS mn ORDER BY mn.id DESC ";
         if($vitri>-1 && $limit >-1){
             $sql.="limit $vitri,$limit";
         }
+
         $this->setQuery($sql);
         return $this->loadAllRows();
     }
@@ -101,6 +101,20 @@ class M_admin extends database{
         $sql = "SELECT tt.id,tt.TieuDe,tt.TieuDeKhongDau,tt.TomTat,tt.Hinh FROM menu AS tt WHERE id = '$id'";
         $this->setQuery($sql);
         return $this->loadRow(array($id));
+    }
+    public function getUserOrder($date){
+        if ($date == 0){
+            $date = date('dmY');
+        }
+        $sql = "SELECT  ou.* FROM order_user ou  WHERE ou.MaMenu = '$date' " ;
+        $this->setQuery($sql);
+        return $this->loadAllRows();
+    }
+    public function confirmFinish(){
+        $Status = $_GET['confirm_finish'];
+        $sql = "UPDATE menu SET Status = 1 WHERE MaMenu = '$Status'";
+        $this->setQuery($sql);
+        return $this->loadRow(array($Status));
     }
 
 }

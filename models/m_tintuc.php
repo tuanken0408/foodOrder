@@ -29,12 +29,27 @@ class M_tintuc extends database{
         $this->setQuery($sql);
         return $this->loadRow(array($date));
     }
+    public function getImageMenu2(){
+        $date = date('dmY').'_2';
+        $sql = "SELECT  mn.Hinh as HinhMenu  FROM menu mn  WHERE mn.MaMenu = '$date' " ;
+        $this->setQuery($sql);
+        return $this->loadRow(array($date));
+    }
 
     public function getUserOrder($date){
         if ($date == 0){
             $date = date('dmY');
         }
         $sql = "SELECT  ou.* FROM order_user ou  WHERE ou.MaMenu = '$date' " ;
+        $this->setQuery($sql);
+        return $this->loadAllRows();
+    }
+
+    public function getUserOrder2($date){
+        if ($date == 0){
+            $date = date('dmY').'_2';
+        }
+        $sql = "SELECT  ou.* FROM order_user_2 ou  WHERE ou.MaMenu = '$date' " ;
         $this->setQuery($sql);
         return $this->loadAllRows();
     }
@@ -110,10 +125,27 @@ class M_tintuc extends database{
         $this->setQuery($sql);
         return $this->execute(array ($HoTen,$SoLuong,$TongTien,$MoTa,$Status_od,'$MaMenu'));
     }
+    public function addOrderMenu2($HoTen,$SoLuong,$TongTien,$MoTa,$Status_od){
+        $MaMenu = date('dmY').'_2';
+        $sql = "INSERT INTO order_user_2(HoTen,SoLuong,TongTien,MoTa,Status_od,MaMenu)
+                VALUES ('$HoTen','$SoLuong','$TongTien','$MoTa','$Status_od', '$MaMenu')";
+        $this->setQuery($sql);
+        return $this->execute(array ($HoTen,$SoLuong,$TongTien,$MoTa,$Status_od,'$MaMenu'));
+    }
     public function updateOrderUser($id,$HoTen,$SoLuong,$TongTien,$Mota){
         $sql = "SELECT *FROM order_user WHERE  id = $id";
         if($id>-1){
             $sql = "UPDATE order_user SET HoTen='$HoTen',SoLuong='$SoLuong',
+                                    TongTien='$TongTien',Mota='$Mota'
+                                    WHERE  id = '$id'";
+        }
+        $this->setQuery($sql);
+        return $this->execute(array($id,$HoTen,$SoLuong,$TongTien,$Mota));
+    }
+    public function updateOrderUser2($id,$HoTen,$SoLuong,$TongTien,$Mota){
+        $sql = "SELECT *FROM order_user_2 WHERE  id = $id";
+        if($id>-1){
+            $sql = "UPDATE order_user_2 SET HoTen='$HoTen',SoLuong='$SoLuong',
                                     TongTien='$TongTien',Mota='$Mota'
                                     WHERE  id = '$id'";
         }
@@ -125,6 +157,11 @@ class M_tintuc extends database{
         $this->setQuery($sql);
         return $this->loadRow(array($id));
     }
+    public function getChiTietOrder2($id){
+        $sql = "SELECT *FROM order_user_2 WHERE id = $id";
+        $this->setQuery($sql);
+        return $this->loadRow(array($id));
+    }
 
     public function getHinhMenu(){
         $MaMenu = date('dmY');
@@ -133,8 +170,20 @@ class M_tintuc extends database{
         $this->setQuery($sql);
         return $this->loadRow(array());
     }
+    public function getHinhMenu2(){
+        $MaMenu = date('dmY').'_2';
+        $sql = "SELECT mn.Hinh
+            FROM menu AS mn WHERE mn.MaMenu = '$MaMenu'";
+        $this->setQuery($sql);
+        return $this->loadRow(array());
+    }
         public function updateStatusCancel($id){
         $sql = "UPDATE order_user SET Status_od = 4 WHERE id = $id";
+        $this->setQuery($sql);
+        return $this->loadRow(array($id));
+    }
+    public function updateStatusCancel2($id){
+        $sql = "UPDATE order_user_2 SET Status_od = 4 WHERE id = $id";
         $this->setQuery($sql);
         return $this->loadRow(array($id));
     }
