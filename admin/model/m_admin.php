@@ -130,5 +130,19 @@ class M_admin extends database{
         return $this->loadRow(array($Status));
     }
 
+    public function confirmPaid(){
+        $id = $_GET['confirm_paid'];
+        $sql = "UPDATE order_user SET Status_od = 2 WHERE id = $id";
+        $this->setQuery($sql);
+        return $this->loadRow(array($id));
+    }
+
+    public function confirmUnPaid(){
+        $id = $_GET['confirm_unpaid'];
+        $sql = "UPDATE order_user SET Status_od = 5 WHERE id = $id";
+        $this->setQuery($sql);
+        return $this->loadRow(array($id));
+    }
+
 }
 ?>

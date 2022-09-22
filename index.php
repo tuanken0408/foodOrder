@@ -106,7 +106,13 @@ if(isset($_POST['them'])){
                         <a href="dangxuat.php">Đăng xuất</a>
                     </li>
                     <?php
-                }
+                }else{ ?>
+                    <li>
+                        <a href="https://noithatlonghuyen.com/DatCom/admin/">
+                            <span class ="glyphicon glyphicon-user"></span>
+                        </a>
+                    </li>
+                <?php }
                 ?>
             </ul>
         </div>

@@ -140,6 +140,16 @@ class C_admin{
         $m_admin->confirmFinishCancel();
         header('location:?view=menu/ds');
     }
+    public function confirmPaid(){
+        $m_admin = new M_admin();
+        $m_admin->confirmPaid();
+        header('location:?view=order/ds');
+    }
+    public function confirmUnPaid(){
+        $m_admin = new M_admin();
+        $m_admin->confirmUnPaid();
+        header('location:?view=order/ds');
+    }
 
     public function stripUnicode($str){
         if(!$str) return false;

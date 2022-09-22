@@ -7,7 +7,12 @@ $staus = array(
     4 => "Đã hủy",
     5 => "Chưa thanh toán",
 );
-
+if (isset($_GET['confirm_paid'])){
+    $c_admin->confirmPaid();
+}
+if (isset($_GET['confirm_unpaid'])){
+    $c_admin->confirmUnPaid();
+}
 
 ?>
 <div class="content">
@@ -83,25 +88,16 @@ $staus = array(
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <?php if ($u->Status_od == 1 && !$chot){ ?>
-                                        <a href="?view=order/sua&id=<?php echo $u->id?>" class="label label-primary">Sửa</a>
+                                    <?php if ($u->Status_od == 3 || $u->Status_od == 1 || $u->Status_od == 5){ ?>
+                                        <a href="?view=order/ds&confirm_paid=<?php echo $u->id?>" class="label label-primary">Xác nhận đã thanh toán</a>
                                     <?php } ?>
 
-                                    <?php if ($u->Status_od == 4 && !$chot): ?>
-                                        <a href="index.php" class="label label-primary">Đặt lại</a>
-                                    <?php elseif ($u->Status_od == 1 && !$chot): ?>
-                                        <a  class="label label-danger" title="Hủy ko đặt nữa" Onclick="confirm_delete('<?= $u->HoTen; ?>','<?= $u->id; ?>')">Hủy</a>
-                                    <?php endif; ?>
-
-
-                                    <?php if ($u->Status_od == 3): ?>
-                                        <!--ẩn button hủy-->
-                                    <?php elseif ($u->Status_od == 1 || $u->Status_od == 5): ?>
-                                        <a class="label label-warning" title="Ai đã chuyển khoản cho em thì submit button này để e check" Onclick="confirm_success('<?= $u->HoTen; ?>','<?= $u->id; ?>')">Tôi đã chuyển tiền</a>
-                                    <?php endif; ?>
+                                    <?php if ($u->Status_od == 1 ){ ?>
+                                        <a href="?view=order/ds&confirm_unpaid=<?php echo $u->id?>" class="label label-danger">Make chưa thanh toán</a>
+                                    <?php } ?>
                                 </td>
                             </tr>
-                            <?php $t+=1; $t_TongTien = $t_TongTien + $u->TongTien; $t_SoLuong = $t_SoLuong + $u->SoLuong; } ?>
+                            <?php $t+=1; if($u->Status_od != 4) {$t_TongTien = $t_TongTien + $u->TongTien; $t_SoLuong = $t_SoLuong + $u->SoLuong;} } ?>
                         <tr>
                             <td></td>
                             <td><strong>Tổng số suất</strong></td>
