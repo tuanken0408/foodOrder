@@ -46,7 +46,7 @@ class M_admin extends database{
         return $this->execute(array ($TieuDe,$TieuDeKhongDau,$MaMenu,$Hinh,$TomTat));
     }
     public function getMenuAdmin($vitri=-1,$limit=-1){
-        $sql = "SELECT mn.id,mn.TieuDe,mn.TieuDeKhongDau,mn.TomTat,mn.Hinh
+        $sql = "SELECT mn.id,mn.Status,mn.TieuDe,mn.TieuDeKhongDau,mn.TomTat,mn.Hinh
             FROM menu AS mn ORDER BY mn.id DESC ";
         if($vitri>-1 && $limit >-1){
             $sql.="limit $vitri,$limit";
@@ -98,9 +98,15 @@ class M_admin extends database{
         return $this->loadRow(array($id));
     }
     public function getMenubyId($id){
-        $sql = "SELECT tt.id,tt.TieuDe,tt.TieuDeKhongDau,tt.TomTat,tt.Hinh FROM menu AS tt WHERE id = '$id'";
+        $sql = "SELECT tt.id,tt.Status,tt.TieuDe,tt.TieuDeKhongDau,tt.TomTat,tt.Hinh FROM menu AS tt WHERE id = '$id'";
         $this->setQuery($sql);
         return $this->loadRow(array($id));
+    }
+    public function getMenubyMaMenu(){
+        $date = date('dmY');
+        $sql = "SELECT tt.id,tt.Status,tt.TieuDe,tt.TieuDeKhongDau,tt.TomTat,tt.Hinh FROM menu AS tt WHERE MaMenu = '$date'";
+        $this->setQuery($sql);
+        return $this->loadRow(array($date));
     }
     public function getUserOrder($date){
         if ($date == 0){
@@ -113,6 +119,13 @@ class M_admin extends database{
     public function confirmFinish(){
         $Status = $_GET['confirm_finish'];
         $sql = "UPDATE menu SET Status = 1 WHERE MaMenu = '$Status'";
+        $this->setQuery($sql);
+        return $this->loadRow(array($Status));
+    }
+
+    public function confirmFinishCancel(){
+        $Status = $_GET['confirm_finish_cancel'];
+        $sql = "UPDATE menu SET Status = 0 WHERE MaMenu = '$Status'";
         $this->setQuery($sql);
         return $this->loadRow(array($Status));
     }

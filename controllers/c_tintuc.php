@@ -153,8 +153,11 @@ class C_tintuc{
     public function Success(){
         $id_order = $_GET['success_ck'];
         $m_tintuc = new M_tintuc();
-        $StatusSuccess = $m_tintuc->updateStatusSuccess($id_order);
-        return array('StatusSuccess'=>$StatusSuccess);
+        $chitietOrder = $m_tintuc->getChiTietOrder($id_order);
+        if ($chitietOrder->Status_od != 2){
+            $StatusSuccess = $m_tintuc->updateStatusSuccess($id_order);
+            return array('StatusSuccess'=>$StatusSuccess);
+        }
     }
     public function updateOrder($id,$HoTen,$SoLuong,$TongTien,$Mota){
         $m_tintuc = new M_tintuc();

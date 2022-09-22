@@ -10,7 +10,15 @@ $slide = $noi_dung['slide'];
 $menu = $noi_dung['menu'];
 $image_menu = $noi_dung['image'];
 
-$chot = false;
+if ($image_menu->HinhStatus == 1){
+    $chot = true;
+}else{
+    $chot = false;
+}
+
+$hienthi = 4;
+//    UPDATE `order_user` SET `Status_od`=2 WHERE `Status_od`=3 AND `MaMenu`= '14092022'
+//    UPDATE `order_user` SET `Status_od`=5 WHERE `Status_od`=1 AND `MaMenu`= '14092022'
 
 $staus = array(
         1 => "Đang đặt",
@@ -79,6 +87,28 @@ if(isset($_POST['them'])){
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="index.php">CƠM TRƯA NGÂN LƯỢNG</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+            <ul class="nav navbar-nav pull-right">
+                <?php
+                if (isset($_SESSION['user_name'])){
+                    ?>
+                    <li>
+                        <a href="https://noithatlonghuyen.com/DatCom/admin/">
+                            <span class ="glyphicon glyphicon-user"></span>
+                            <?php echo $_SESSION['user_name'] ?>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="dangxuat.php">Đăng xuất</a>
+                    </li>
+                    <?php
+                }
+                ?>
+            </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -195,14 +225,14 @@ if(isset($_POST['them'])){
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <?php
                     $date_arr = array();
-                    for ($i = 0; $i<1; $i++ ){
+                    for ($i = 0; $i<$hienthi; $i++ ){
                         $key = date('dmY', strtotime('-'.$i.' days'));
                         $date_arr[$key] = date('d/m/Y', strtotime('-'.$i.' days'));
                     }
-                    $date_arr['07092022'] = '07/09/2022';
+//                    $date_arr['07092022'] = '07/09/2022';
                     foreach ($date_arr as $drk => $drv ){ ?>
                         <li class="nav-item <?php if ($drk == date('dmY')){ echo 'active';} ?>">
-                            <a class="nav-link" id="<?= $drk ?>-tab" data-toggle="tab" href="#<?= $drk ?>" role="tab" aria-controls="<?= $drk ?>" aria-selected="true"><?= $drv; ?><?php if($drk == '07000092022'){echo ' <span style="color:red;">(Chưa hoàn tất)</span>';} ?></a>
+                            <a class="nav-link" id="<?= $drk ?>-tab" data-toggle="tab" href="#<?= $drk ?>" role="tab" aria-controls="<?= $drk ?>" aria-selected="true"><?= $drv; ?><?php if($drk == '20092022'){echo ' <span style="color:red; font-weight: bold;">(3)</span>';} ?></a>
                         </li>
                     <?php }
                     ?>

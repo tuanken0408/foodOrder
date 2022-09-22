@@ -16,7 +16,6 @@ if(isset($_POST['sua'])){
     $created_at = date_format($created_at,'Y-m-d H:i:s');
     $c_admin->editMenu($id,$TieuDe,$TieuDeKhongDau,$Hinh,$TomTat);
 }
-var_dump($menubyid->Hinh);
 ?>
 <div class="content">
     <h2>SỬA THỰC ĐơN</h2>
@@ -43,6 +42,7 @@ var_dump($menubyid->Hinh);
                 value="<?php echo $menubyid->TieuDeKhongDau?>">
             </div>
         </div>
+
 
         <div class="form-group">
             <label for="inputName" class="col-sm-2 control-label">Ảnh</label>

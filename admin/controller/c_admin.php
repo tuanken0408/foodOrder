@@ -119,6 +119,11 @@ class C_admin{
             return array('menubyid'=>'');
         }
     }
+    public function getMenubyMaMenu(){
+        $m_admin = new M_admin();
+        $menubymamenu = $m_admin->getMenubyMaMenu();
+        return array('menubymamenu'=>$menubymamenu);
+    }
     public function getUserOrder($date=0)
     {
         $m_admin = new M_admin();
@@ -128,6 +133,12 @@ class C_admin{
     public function confirmFinish(){
         $m_admin = new M_admin();
         $m_admin->confirmFinish();
+        header('location:?view=menu/ds');
+    }
+    public function confirmFinishCancel(){
+        $m_admin = new M_admin();
+        $m_admin->confirmFinishCancel();
+        header('location:?view=menu/ds');
     }
 
     public function stripUnicode($str){

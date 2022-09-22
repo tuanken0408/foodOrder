@@ -8,7 +8,10 @@
 //         echo "<div class='alert alert-danger'>XÓA THẤT BẠI</div>";
 //     }
 // }
-
+$staus = array(
+    0 => "Đang đặt",
+    1 => "Đã chốt cơm",
+);
 ?>
 <div class="content">
     <h2>Danh sách Thực đơn</h2>
@@ -17,7 +20,7 @@
         <tr>
             <td>STT</td>
             <td>Tiêu Đề</td>
-            <td>Tiêu Đề Không Dấu</td>
+            <td>Trạng thái</td>
             <td>Hình</td>
             <td>Tóm tắt</td>
             <td>Tác vụ</td>
@@ -34,8 +37,13 @@
                         <?php echo $bv->TieuDe ?>
                     </td>
                     <td>
-
-                        <?php echo $bv->TieuDeKhongDau ?>
+                        <?php
+                        if ($bv->Status == 1){ ?>
+                            <span class="label label-danger"><?= $staus[$bv->Status]; ?></span>
+                        <?php }else{ ?>
+                            <span class="label label-primary"><?= $staus[$bv->Status]; ?></span>
+                        <?php }
+                        ?>
                     </td>
                     <td>
                         <img height="50" width="50" src="../public/image/menu/<?php echo $bv->Hinh ?>" class="img-responsive" >

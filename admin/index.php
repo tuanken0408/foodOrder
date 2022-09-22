@@ -17,11 +17,17 @@ $list = $noidung4['listbyid'];
 $noidung6 = $c_admin->getMenubyID();
 $menubyid = $noidung6['menubyid'];
 
+$noidung7 = $c_admin->getMenubyMaMenu();
+$menubymamenu = $noidung7['menubymamenu'];
+
 $noidung5 = $c_admin->getMenuAd();
 $menu = $noidung5['menu'];
 
 if (isset($_GET['confirm_finish'])){
     $c_admin->confirmFinish();
+}
+if (isset($_GET['confirm_finish_cancel'])){
+    $c_admin->confirmFinishCancel();
 }
 
 //print_r($list);
@@ -84,7 +90,11 @@ if (!isset( $_SESSION['id_user'])){
                 <ul class="nav navbar-nav">
                     <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
                     <li>
-                        <a href="?view=menu/ds&confirm_finish=<?=date('dmY')?>" >Admin Chốt cơm hôm nay <?php echo date('d - m - Y') ?></a>
+                        <?php if ($menubymamenu->Status == 1){ ?>
+                            <a href="?view=menu/ds&confirm_finish_cancel=<?=date('dmY')?>" >Admin Hủy Chốt cơm hôm nay <?php echo date('d - m - Y') ?></a>
+                        <?php }else{ ?>
+                            <a href="?view=menu/ds&confirm_finish=<?=date('dmY')?>" >Admin Chốt cơm hôm nay <?php echo date('d - m - Y') ?></a>
+                        <?php } ?>
                     </li>
                     <li class="">
                         <a href="?view=menu/ds">Menu Đồ ăn</a>

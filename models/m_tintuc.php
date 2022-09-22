@@ -25,7 +25,7 @@ class M_tintuc extends database{
 
     public function getImageMenu(){
         $date = date('dmY');
-        $sql = "SELECT  mn.Hinh as HinhMenu  FROM menu mn  WHERE mn.MaMenu = '$date' " ;
+        $sql = "SELECT  mn.Hinh as HinhMenu, mn.Status as HinhStatus  FROM menu mn  WHERE mn.MaMenu = '$date' " ;
         $this->setQuery($sql);
         return $this->loadRow(array($date));
     }
@@ -40,7 +40,7 @@ class M_tintuc extends database{
         if ($date == 0){
             $date = date('dmY');
         }
-        $sql = "SELECT  ou.* FROM order_user ou  WHERE ou.MaMenu = '$date' " ;
+        $sql = "SELECT  ou.* FROM order_user ou  WHERE ou.MaMenu = '$date'  AND ou.Status_od <> 4 ";
         $this->setQuery($sql);
         return $this->loadAllRows();
     }
