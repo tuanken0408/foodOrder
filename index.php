@@ -15,8 +15,7 @@ if ($image_menu->HinhStatus == 1){
 }else{
     $chot = false;
 }
-
-$hienthi = 4;
+$hienthi = 9;
 //    UPDATE `order_user` SET `Status_od`=2 WHERE `Status_od`=3 AND `MaMenu`= '14092022'
 //    UPDATE `order_user` SET `Status_od`=5 WHERE `Status_od`=1 AND `MaMenu`= '14092022'
 
@@ -166,7 +165,7 @@ if(isset($_POST['them'])){
             <div class="col-md-1"></div>
             <div class="col-md-5">
                 <form method="post" action="#">
-                    <h2 style="font-weight: bold; color: red">ĐẶT CƠM NGÀY <?= date('d/m/Y'); ?> (<span id="demo_timer">10h30</span>)</h2>
+                    <h2 style="font-weight: bold; color: red">ĐẶT CƠM NGÀY <?= date('d/m/Y'); ?> (<span id="demo_timer">10h40</span>)</h2>
                     <blockquote class="font12">
                         <h5 class="mrtop0 bold blueFont"><i class="glyphicon glyphicon-info-sign"></i> Lưu ý:</h5>
                         <h5>- Văn minh lịch sự, không sửa hàng của đồng nghiệp.</h5>
@@ -231,14 +230,19 @@ if(isset($_POST['them'])){
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <?php
                     $date_arr = array();
+                    $date_arr_count = array();
                     for ($i = 0; $i<$hienthi; $i++ ){
                         $key = date('dmY', strtotime('-'.$i.' days'));
-                        $date_arr[$key] = date('d/m/Y', strtotime('-'.$i.' days'));
+                        if (!(date('N', strtotime(date('Y-m-d', strtotime('-'.$i.' days')))) >= 6)){ // trừ t7 CN
+                            $date_arr[$key] = date('d/m/Y', strtotime('-'.$i.' days'));
+                            $countUnPaid = $c_tintuc->index2($key);
+                            $userUnPaid = $countUnPaid['userUnPaid'];
+                            $date_ar_countr[$key] = $userUnPaid->count;
+                        }
                     }
-//                    $date_arr['07092022'] = '07/09/2022';
                     foreach ($date_arr as $drk => $drv ){ ?>
                         <li class="nav-item <?php if ($drk == date('dmY')){ echo 'active';} ?>">
-                            <a class="nav-link" id="<?= $drk ?>-tab" data-toggle="tab" href="#<?= $drk ?>" role="tab" aria-controls="<?= $drk ?>" aria-selected="true"><?= $drv; ?><?php if($drk == '20092022'){echo ' <span style="color:red; font-weight: bold;">(3)</span>';} ?></a>
+                            <a class="nav-link" id="<?= $drk ?>-tab" data-toggle="tab" href="#<?= $drk ?>" role="tab" aria-controls="<?= $drk ?>" aria-selected="true"><?= $drv; ?><?php if ($date_ar_countr[$drk] > 0){ ?><span style="color:red; font-weight: bold;"> (<?php  echo $date_ar_countr[$drk];?> chưa thanh toán)</span><?php } ?></a>
                         </li>
                     <?php }
                     ?>

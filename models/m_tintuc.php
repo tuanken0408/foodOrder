@@ -45,6 +45,15 @@ class M_tintuc extends database{
         return $this->loadAllRows();
     }
 
+    public function getUserOrderUnpaid($date){
+        if ($date == 0){
+            $date = date('dmY');
+        }
+        $sql = "SELECT COUNT(*) AS count  FROM order_user  WHERE MaMenu = '$date'  AND Status_od <> 4 AND Status_od <> 2 AND Status_od <> 3";
+        $this->setQuery($sql);
+        return $this->loadRow();
+    }
+
     public function getUserOrder2($date){
         if ($date == 0){
             $date = date('dmY').'_2';
