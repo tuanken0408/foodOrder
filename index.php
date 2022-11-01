@@ -18,7 +18,6 @@ if ($image_menu->HinhStatus == 1){
 $hienthi = 9;
 //    UPDATE `order_user` SET `Status_od`=2 WHERE `Status_od`=3 AND `MaMenu`= '14092022'
 //    UPDATE `order_user` SET `Status_od`=5 WHERE `Status_od`=1 AND `MaMenu`= '14092022'
-
 $staus = array(
         1 => "Đang đặt",
         2 => "Đã hoàn tất thanh toán",
@@ -35,7 +34,8 @@ if (isset($_GET['cancel'])){
 if(isset($_POST['them'])){
     $HoTen = $_POST['hoten'];
     $SoLuong = $_POST['soluong'];
-    $TongTien = $_POST['tongtien'];
+//    $TongTien = $_POST['tongtien'];
+    $TongTien = $SoLuong*30000;
     $MoTa = $_POST['mota'];
     $Staus = 1;
 
