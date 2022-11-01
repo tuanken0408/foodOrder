@@ -33,16 +33,22 @@ if (isset($_GET['cancel'])){
 }
 if(isset($_POST['them'])){
     $HoTen = $_POST['hoten'];
+    $isVH = $_POST['isVH'];
     $SoLuong = $_POST['soluong'];
 //    $TongTien = $_POST['tongtien'];
-    $TongTien = $SoLuong*30000;
+    $TongTien2 = $_POST['tongtien2'];
+    if ($TongTien2 != '' || $TongTien2 != 0){
+        $TongTien = $TongTien2;
+    }else{
+        $TongTien = $SoLuong*30000;
+    }
     $MoTa = $_POST['mota'];
     $Staus = 1;
 
     $created_at= strtotime(date_default_timezone_set('Asia/Ho_Chi_Minh'));
     $created_at = date_create($created_at);
     $created_at = date_format($created_at,'Y-m-d H:i:s');
-    $c_tintuc->addOrder($HoTen,$SoLuong,$TongTien,$MoTa,$Staus);
+    $c_tintuc->addOrder($HoTen,$SoLuong,$TongTien,$MoTa,$Staus,$isVH);
 }
 ?>
 <!DOCTYPE html>
@@ -199,17 +205,29 @@ if(isset($_POST['them'])){
                         <input type="text" class="form-control" name="hoten" id="hoten" placeholder="Họ và Tên" required>
                     </div>
                     <div class="form-group">
+                        <input type="checkbox" id="isVH" name="isVH" value="1"><label for="isVH">&nbsp; is Vận Hành</label>
+                    </div>
+                    <div class="form-group">
                         <label for="soluong">Số suất đặt</label>
                         <input type="text" class="form-control" name="soluong" id="soluong" required>
                     </div>
-                    <div class="form-group">
+
+                    <div class="form-group reg_cash_amount_none">
                         <label for="soluong">Tổng tiền</label>
                         <p id="tongtien_display" style="color: red; font-weight: bold"></p>
                         <input type="hidden" class="form-control" name="tongtien" id="tongtien" >
                     </div>
                     <div class="form-group">
+                        <input class="reg_cash" type="checkbox" name="reg_cash" value="1"><label for="reg_cash">&nbsp; Đặt customize</label>
+                    </div>
+                    <div class="form-group">
                         <label for="mota">Ghi chú </label>
-                        <textarea class="form-control" id="mota" name="mota" rows="7" placeholder="đầy đủ thì ko cần ghi gì"></textarea>
+                        <textarea class="form-control" id="mota" name="mota" rows="2" placeholder="Chỉ rau, không cơm,..."></textarea>
+                    </div>
+                    <div class="form-group reg_cash_amount" style="display: none">
+                        <label for="tongtien2">Số tiền mong muốn</label>
+                        <input type="hidden" class="form-control" name="tongtien2" id="tongtien2" placeholder="10k, 20k, 50k,...">
+                        <input type="text" class="form-control" name="tongtien_display2" id="tongtien_display2" placeholder="10k, 20k, 50k,...">
                     </div>
                     <!--                   <div class="form-group">-->
                     <!--                       <label for="soluong">Bonus</label>-->
@@ -258,6 +276,7 @@ if(isset($_POST['them'])){
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Phòng</th>
                                     <th scope="col">Họ Tên</th>
                                     <th scope="col">Số suất đặt</th>
                                     <th scope="col">Ghi chú</th>
@@ -276,6 +295,7 @@ if(isset($_POST['them'])){
                                     foreach ($user as $u){  ?>
                                         <tr>
                                             <th scope="row"><?= $t ?></th>
+                                            <td><?php  if ($u->isVH == '1'){echo 'Vận Hành';}else{echo 'Kỹ thuật';} ?></td>
                                             <td><?= $u->HoTen; ?></td>
                                             <td><?= $u->SoLuong; ?></td>
                                             <td><?= $u->Mota; ?></td>
@@ -323,6 +343,7 @@ if(isset($_POST['them'])){
                                         </tr>
                                         <?php $t+=1; $t_TongTien = $t_TongTien + $u->TongTien; $t_SoLuong = $t_SoLuong + $u->SoLuong; } ?>
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td><strong>Tổng số suất</strong></td>
                                         <td><strong><?= $t_SoLuong; ?></strong></td>
@@ -393,6 +414,27 @@ if(isset($_POST['them'])){
         $('#tongtien').val(data);
         $('#tongtien_display').html(data.toLocaleString('vi-VN')+' đ');
     });
+    $('#tongtien_display2').keyup(function () {
+        var amount = $('#tongtien_display2').val();
+        if (typeof (amount) == 'string') {
+            if (amount == ''){
+                amount = 0;
+            } else {
+                amount = parseInt(amount.split('.').join(""));
+            }
+        };
+        $('#tongtien2').val(amount);
+        if (amount == 0) {
+            $('#tongtien_display2').val('');
+        } else {
+            $('#tongtien_display2').val(amount.toLocaleString('vi-VN'));
+        };
+    });
+    // $('#tongtien_display2').keyup(function () {
+    //     var data = $('#tongtien_display2').val();
+    //     $('#tongtien2').val(data);
+    //     $('#tongtien_display2').val(data.toLocaleString('vi-VN')+' đ');
+    // });
 
     $("#pop").on("click", function() {
         $('#imagepreview').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
@@ -401,6 +443,16 @@ if(isset($_POST['them'])){
     $("#pop2").on("click", function() {
         $('#priview2').attr('src', $('#pop2').attr('data-src')); // here asign the image to the modal when the user click the enlarge link
         $('#imagemodal2').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+    });
+
+    $(".reg_cash").click(function () {
+        if ($(this).is(":checked")) {
+            $(".reg_cash_amount").show();
+            $(".reg_cash_amount_none").hide();
+        } else {
+            $(".reg_cash_amount").hide();
+            $(".reg_cash_amount_none").show();
+        }
     });
 </script>
 </body>

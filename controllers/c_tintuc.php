@@ -81,9 +81,9 @@ class C_tintuc{
         $tin =$m_tintuc->search($key);
         return $tin;
     }
-    public function addOrder($HoTen,$SoLuong,$TongTien,$MoTa,$Status){
+    public function addOrder($HoTen,$SoLuong,$TongTien,$MoTa,$Status,$isVH){
         $m_tintuc = new M_tintuc();
-        $them = $m_tintuc->addOrderMenu($HoTen,$SoLuong,$TongTien,$MoTa,$Status);
+        $them = $m_tintuc->addOrderMenu($HoTen,$SoLuong,$TongTien,$MoTa,$Status,$isVH);
         if ($them >0){
             $_SESSION['them_win']="Thêm thành công";
             header('location:?success=ok');
@@ -160,9 +160,9 @@ class C_tintuc{
             return array('StatusSuccess'=>$StatusSuccess);
         }
     }
-    public function updateOrder($id,$HoTen,$SoLuong,$TongTien,$Mota){
+    public function updateOrder($id,$HoTen,$SoLuong,$TongTien,$Mota,$isVH){
         $m_tintuc = new M_tintuc();
-        $sua = $m_tintuc->updateOrderUser($id,$HoTen,$SoLuong,$TongTien,$Mota);
+        $sua = $m_tintuc->updateOrderUser($id,$HoTen,$SoLuong,$TongTien,$Mota,$isVH);
         if (isset($_SESSION['them_win'])){
             unset($_SESSION['them_win']);
         }

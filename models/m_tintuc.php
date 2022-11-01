@@ -127,12 +127,12 @@ class M_tintuc extends database{
     }
 
     // MENU ORDER
-    public function addOrderMenu($HoTen,$SoLuong,$TongTien,$MoTa,$Status_od){
+    public function addOrderMenu($HoTen,$SoLuong,$TongTien,$MoTa,$Status_od,$isVH){
         $MaMenu = date('dmY');
-        $sql = "INSERT INTO order_user(HoTen,SoLuong,TongTien,MoTa,Status_od,MaMenu)
-                VALUES ('$HoTen','$SoLuong','$TongTien','$MoTa','$Status_od', '$MaMenu')";
+        $sql = "INSERT INTO order_user(HoTen,SoLuong,TongTien,MoTa,Status_od,MaMenu,isVH)
+                VALUES ('$HoTen','$SoLuong','$TongTien','$MoTa','$Status_od', '$MaMenu', '$isVH')";
         $this->setQuery($sql);
-        return $this->execute(array ($HoTen,$SoLuong,$TongTien,$MoTa,$Status_od,'$MaMenu'));
+        return $this->execute(array ($HoTen,$SoLuong,$TongTien,$MoTa,$Status_od,'$MaMenu','$isVH'));
     }
     public function addOrderMenu2($HoTen,$SoLuong,$TongTien,$MoTa,$Status_od){
         $MaMenu = date('dmY').'_2';
@@ -141,15 +141,15 @@ class M_tintuc extends database{
         $this->setQuery($sql);
         return $this->execute(array ($HoTen,$SoLuong,$TongTien,$MoTa,$Status_od,'$MaMenu'));
     }
-    public function updateOrderUser($id,$HoTen,$SoLuong,$TongTien,$Mota){
+    public function updateOrderUser($id,$HoTen,$SoLuong,$TongTien,$Mota,$isVH){
         $sql = "SELECT *FROM order_user WHERE  id = $id";
         if($id>-1){
             $sql = "UPDATE order_user SET HoTen='$HoTen',SoLuong='$SoLuong',
-                                    TongTien='$TongTien',Mota='$Mota'
+                                    TongTien='$TongTien',Mota='$Mota', isVH ='$isVH'
                                     WHERE  id = '$id'";
         }
         $this->setQuery($sql);
-        return $this->execute(array($id,$HoTen,$SoLuong,$TongTien,$Mota));
+        return $this->execute(array($id,$HoTen,$SoLuong,$TongTien,$Mota,$isVH));
     }
     public function updateOrderUser2($id,$HoTen,$SoLuong,$TongTien,$Mota){
         $sql = "SELECT *FROM order_user_2 WHERE  id = $id";
