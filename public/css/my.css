@@ -64,3 +64,7 @@ a:hover{
     color: #edeff2;
     text-transform: uppercase;
 }
+.none-payment {
+	background: #efc9c9;
+	border: 1px solid #000;
+}

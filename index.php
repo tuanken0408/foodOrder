@@ -205,7 +205,7 @@ if(isset($_POST['them'])){
                         <input type="text" class="form-control" name="hoten" id="hoten" placeholder="Họ và Tên" required>
                     </div>
                     <div class="form-group">
-                        <input type="checkbox" id="isVH" name="isVH" value="1"><label for="isVH">&nbsp; is Vận Hành</label>
+                        <input type="checkbox" id="isVH" name="isVH" value="1"><label for="isVH">&nbsp; Vận Hành (VH đặt cơm thì click vào đây)</label>
                     </div>
                     <div class="form-group">
                         <label for="soluong">Số suất đặt</label>
@@ -218,7 +218,7 @@ if(isset($_POST['them'])){
                         <input type="hidden" class="form-control" name="tongtien" id="tongtien" >
                     </div>
                     <div class="form-group">
-                        <input class="reg_cash" type="checkbox" name="reg_cash" value="1"><label for="reg_cash">&nbsp; Đặt customize</label>
+                        <input class="reg_cash" type="checkbox" name="reg_cash" value="1"><label for="reg_cash">&nbsp; Đặt customize (dành cho ai thêm cơm, thêm thức ăn, khác số tiền 30k..)</label>
                     </div>
                     <div class="form-group">
                         <label for="mota">Ghi chú </label>
@@ -293,9 +293,9 @@ if(isset($_POST['them'])){
                                 $t_SoLuong = 0;
                                 if (count($user) > 0){
                                     foreach ($user as $u){  ?>
-                                        <tr>
+                                        <tr class="<?php if ($u->Status_od == 5){ echo 'none-payment';} ?>">
                                             <th scope="row"><?= $t ?></th>
-                                            <td><?php  if ($u->isVH == '1'){echo 'Vận Hành';}else{echo 'Kỹ thuật';} ?></td>
+                                            <td><?php  if ($u->isVH == '1'){echo '<span style="color: #0000ff">Vận Hành</span>';}else{echo 'Kỹ Thuật';} ?></td>
                                             <td><?= $u->HoTen; ?></td>
                                             <td><?= $u->SoLuong; ?></td>
                                             <td><?= $u->Mota; ?></td>

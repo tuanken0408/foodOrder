@@ -104,7 +104,7 @@ if(isset($_POST['sua'])){
                     <input type="text" class="form-control" name="hoten" id="hoten" placeholder="Họ và Tên" value="<?= $chitiet->HoTen; ?>" required>
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" id="isVH" name="isVH" value="<?= $chitiet->isVH; ?>" <?php if ($chitiet->isVH == '1'){echo ' checked';} ?>><label for="isVH">is Vận Hành</label>
+                    <input type="checkbox" id="isVH" name="isVH" value="<?= $chitiet->isVH; ?>" <?php if ($chitiet->isVH == '1'){echo ' checked';} ?>><label for="isVH">&nbsp; Vận Hành (VH đặt cơm thì click vào đây)</label>
                 </div>
                 <div class="form-group">
                     <label for="soluong">Số suất đặt</label>
@@ -116,7 +116,7 @@ if(isset($_POST['sua'])){
                     <input type="hidden" class="form-control" name="tongtien" id="tongtien" value="<?= $chitiet->TongTien; ?>">
                 </div>
                 <div class="form-group">
-                    <input class="reg_cash" type="checkbox" name="reg_cash" value="1"><label for="reg_cash">&nbsp; Đặt customize</label>
+                    <input class="reg_cash" type="checkbox" name="reg_cash" value="1"><label for="reg_cash">&nbsp; Đặt customize (dành cho ai thêm cơm, thêm thức ăn,..)</label>
                 </div>
                 <div class="form-group reg_cash_amount" style="display: none">
                     <label for="tongtien2">Số tiền mong muốn</label>
