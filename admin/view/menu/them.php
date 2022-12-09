@@ -24,7 +24,7 @@ if(isset($_POST['them'])){
         <div class="form-group">
             <label for="inputName" class="col-sm-2 control-label">Tiêu đề</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputName" placeholder="Tiêu đề" name="TieuDe">
+                <input type="text" class="form-control" id="inputName" placeholder="Tiêu đề" name="TieuDe" value="Thực đơn ngày <?= date('d/m/Y') ?>">
             </div>
         </div>
         <div class="form-group">

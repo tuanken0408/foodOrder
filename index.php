@@ -40,7 +40,7 @@ if(isset($_POST['them'])){
     if ($TongTien2 != '' || $TongTien2 != 0){
         $TongTien = $TongTien2;
     }else{
-        $TongTien = $SoLuong*30000;
+        $TongTien = $SoLuong*35000;
     }
     $MoTa = $_POST['mota'];
     $Staus = 1;
@@ -148,7 +148,10 @@ if(isset($_POST['them'])){
                 <!--               <img src="http://localhost/foodorder2/public/image/menu/2a8f3c5ecab80fe656a9.jpg" class="img-responsive" alt="..." style="max-height: 600px; float: right">-->
                 <!--               <img src="public/image/menu/--><?php //echo $image_menu->HinhMenu ?><!--" class="img-responsive" alt="..." style="max-height: 600px; float: right">-->
                 <a href="#" id="pop">
-                    <img id="imageresource" src="public/image/menu/<?php echo $image_menu->HinhMenu ?>" style="max-height: 600px; float: right">
+                    <img id="imageresource" src="public/image/menu/<?php echo $image_menu->HinhMenu ?>" style="max-height: 500px; float: right">
+                </a>
+                <a href="#" id="pop">
+                    <img id="imageresource" src="public/image/menu/image2.jpg" style="max-height: 500px; width: 100%; float: right">
                 </a>
 
                 <!-- Creates the bootstrap modal where the image will appear -->
@@ -171,11 +174,11 @@ if(isset($_POST['them'])){
             <div class="col-md-1"></div>
             <div class="col-md-5">
                 <form method="post" action="#">
-                    <h2 style="font-weight: bold; color: red">ĐẶT CƠM NGÀY <?= date('d/m/Y'); ?> (<span id="demo_timer">10h40</span>)</h2>
+                    <h2 style="font-weight: bold; color: red">ĐẶT CƠM NGÀY <?= date('d/m/Y'); ?> (<span id="demo_timer">9h30</span>)</h2>
                     <blockquote class="font12">
                         <h5 class="mrtop0 bold blueFont"><i class="glyphicon glyphicon-info-sign"></i> Lưu ý:</h5>
                         <h5>- Văn minh lịch sự, không sửa hàng của đồng nghiệp.</h5>
-                        <h5>- Thời hạn đăng ký đến 10h40 hằng ngày.</h5>
+                        <h5>- Thời hạn đăng ký đến 9h30 hằng ngày.</h5>
                         <h5><strong style="color: red;">STK Nhận tiền: 19036581222012 - Tech - BUI ANH DUC or <a
                                         href="#" id="pop2" data-src="public/image/QR.jpg" >Quét mã QR</a></strong></h5>
 
@@ -204,9 +207,9 @@ if(isset($_POST['them'])){
                         <label for="hoten">Họ và tên</label>
                         <input type="text" class="form-control" name="hoten" id="hoten" placeholder="Họ và Tên" required>
                     </div>
-                    <div class="form-group">
-                        <input type="checkbox" id="isVH" name="isVH" value="1"><label for="isVH">&nbsp; Vận Hành (VH đặt cơm thì click vào đây)</label>
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <input type="checkbox" id="isVH" name="isVH" value="1"><label for="isVH">&nbsp; Vận Hành (VH đặt cơm thì click vào đây)</label>-->
+<!--                    </div>-->
                     <div class="form-group">
                         <label for="soluong">Số suất đặt</label>
                         <input type="text" class="form-control" name="soluong" id="soluong" required>
@@ -217,18 +220,18 @@ if(isset($_POST['them'])){
                         <p id="tongtien_display" style="color: red; font-weight: bold"></p>
                         <input type="hidden" class="form-control" name="tongtien" id="tongtien" >
                     </div>
-                    <div class="form-group">
-                        <input class="reg_cash" type="checkbox" name="reg_cash" value="1"><label for="reg_cash">&nbsp; Đặt customize (dành cho ai thêm cơm, thêm thức ăn, khác số tiền 30k..)</label>
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <input class="reg_cash" type="checkbox" name="reg_cash" value="1"><label for="reg_cash">&nbsp; Đặt customize (dành cho ai thêm cơm, thêm thức ăn, khác số tiền 30k..)</label>-->
+<!--                    </div>-->
                     <div class="form-group">
                         <label for="mota">Ghi chú </label>
                         <textarea class="form-control" id="mota" name="mota" rows="2" placeholder="Chỉ rau, không cơm,..."></textarea>
                     </div>
-                    <div class="form-group reg_cash_amount" style="display: none">
-                        <label for="tongtien2">Số tiền mong muốn</label>
-                        <input type="hidden" class="form-control" name="tongtien2" id="tongtien2" placeholder="10k, 20k, 50k,...">
-                        <input type="text" class="form-control" name="tongtien_display2" id="tongtien_display2" placeholder="10k, 20k, 50k,...">
-                    </div>
+<!--                    <div class="form-group reg_cash_amount" style="display: none">-->
+<!--                        <label for="tongtien2">Số tiền mong muốn</label>-->
+<!--                        <input type="hidden" class="form-control" name="tongtien2" id="tongtien2" placeholder="10k, 20k, 50k,...">-->
+<!--                        <input type="text" class="form-control" name="tongtien_display2" id="tongtien_display2" placeholder="10k, 20k, 50k,...">-->
+<!--                    </div>-->
                     <!--                   <div class="form-group">-->
                     <!--                       <label for="soluong">Bonus</label>-->
                     <!--                       <input type="text" class="form-control" name="bonus" id="bonus" placeholder="1">-->
@@ -260,7 +263,7 @@ if(isset($_POST['them'])){
                     }
                     foreach ($date_arr as $drk => $drv ){ ?>
                         <li class="nav-item <?php if ($drk == date('dmY')){ echo 'active';} ?>">
-                            <a class="nav-link" id="<?= $drk ?>-tab" data-toggle="tab" href="#<?= $drk ?>" role="tab" aria-controls="<?= $drk ?>" aria-selected="true"><?= $drv; ?><?php if ($date_ar_countr[$drk] > 0){ ?><span style="color:red; font-weight: bold;"> (<?php  echo $date_ar_countr[$drk];?> chưa thanh toán)</span><?php } ?></a>
+                            <a class="nav-link" id="<?= $drk ?>-tab" data-toggle="tab" href="#<?= $drk ?>" role="tab" aria-controls="<?= $drk ?>" aria-selected="true"><?= $drv; ?><?php if ($date_ar_countr[$drk] > 0){ ?><span style="color:red; font-weight: bold;"> (<?php  echo $date_ar_countr[$drk];?> chưa TT)</span><?php } ?></a>
                         </li>
                     <?php }
                     ?>
@@ -323,7 +326,7 @@ if(isset($_POST['them'])){
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <?php if ($u->Status_od == 1 && !$chot){ ?>
+                                                <?php if (($u->Status_od == 1 || $u->Status_od == 3) && !$chot){ ?>
                                                     <a href="?view=order/sua&id=<?php echo $u->id?>" class="label label-primary">Sửa</a>
                                                 <?php } ?>
 
@@ -334,8 +337,8 @@ if(isset($_POST['them'])){
                                                 <?php endif; ?>
 
 
-                                                <?php if ($u->Status_od == 3): ?>
-                                                    <!--ẩn button hủy-->
+                                                <?php if ($u->Status_od == 3 && !$chot): ?>
+                                                    <a  class="label label-danger" title="Hủy ko đặt nữa" Onclick="confirm_delete('<?= $u->HoTen; ?>','<?= $u->id; ?>')">Hủy</a>
                                                 <?php elseif ($u->Status_od == 1 || $u->Status_od == 5): ?>
                                                     <a class="label label-warning" title="Ai đã chuyển khoản cho em thì submit button này để e check" Onclick="confirm_success('<?= $u->HoTen; ?>','<?= $u->id; ?>')">Tôi đã chuyển tiền</a>
                                                 <?php endif; ?>
@@ -410,7 +413,7 @@ if(isset($_POST['them'])){
 
     $('#soluong').keyup(function () {
         var soluong = $('#soluong').val();
-        var data = soluong*30000;
+        var data = soluong*35000;
         $('#tongtien').val(data);
         $('#tongtien_display').html(data.toLocaleString('vi-VN')+' đ');
     });
