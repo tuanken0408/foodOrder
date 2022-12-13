@@ -26,7 +26,7 @@ class C_user{
             $_SESSION['user_name'] = $user->name;
             $_SESSION['id_user'] = $user->id;
             $_SESSION['role_user'] = $user->role;
-            header('location:index.php');
+            header('location:admin/');
             if (isset($_SESSION['user_error'])){
                 unset($_SESSION['user_error']);
             }

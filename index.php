@@ -162,7 +162,7 @@ if(isset($_POST['them'])){
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                             </div>
                             <div class="modal-body">
-                                <img src="" id="imagepreview" style="max-height: 1000px;" >
+                                <img src="" id="imagepreview" style="max-height: 590px;" >
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">X</button>
