@@ -40,6 +40,7 @@ if(isset($_POST['them'])){
     if ($TongTien2 != '' || $TongTien2 != 0){
         $TongTien = $TongTien2;
     }else{
+        if ($SoLuong < 1){ $SoLuong = 1; }
         $TongTien = $SoLuong*35000;
     }
     $MoTa = $_POST['mota'];
@@ -102,7 +103,7 @@ if(isset($_POST['them'])){
                 if (isset($_SESSION['user_name'])){
                     ?>
                     <li>
-                        <a href="https://noithatlonghuyen.com/DatCom/admin/">
+                        <a href="admin/">
                             <span class ="glyphicon glyphicon-user"></span>
                             <?php echo $_SESSION['user_name'] ?>
                         </a>
@@ -113,7 +114,7 @@ if(isset($_POST['them'])){
                     <?php
                 }else{ ?>
                     <li>
-                        <a href="https://noithatlonghuyen.com/DatCom/admin/">
+                        <a href="admin/">
                             <span class ="glyphicon glyphicon-user"></span>
                         </a>
                     </li>

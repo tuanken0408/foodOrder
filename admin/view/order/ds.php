@@ -13,7 +13,9 @@ if (isset($_GET['confirm_paid'])){
 if (isset($_GET['confirm_unpaid'])){
     $c_admin->confirmUnPaid();
 }
-
+$hienthi = 9;
+ini_set('display_errors', false);
+error_reporting(0);
 ?>
 <div class="content">
     <h2>Danh sách Thực đơn</h2>
@@ -21,19 +23,33 @@ if (isset($_GET['confirm_unpaid'])){
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <?php
         $date_arr = array();
-        for ($i = 0; $i<7; $i++ ){
+        $date_arr_count = array();
+        for ($i = 0; $i<$hienthi; $i++ ){
             $key = date('dmY', strtotime('-'.$i.' days'));
-            $date_arr[$key] = date('d/m/Y', strtotime('-'.$i.' days'));
+            if (!(date('N', strtotime(date('Y-m-d', strtotime('-'.$i.' days')))) >= 6)){ // trừ t7 CN
+                $date_arr[$key] = date('d/m/Y', strtotime('-'.$i.' days'));
+                $countUnPaid = $c_admin->index2($key);
+                $userUnPaid = $countUnPaid['userUnPaid'];
+                $userDiffSucess = $countUnPaid['userDiffSucess'];
+                $date_ar_countr[$key] = $userUnPaid->count;
+                $date_ar_diff[$key] = $userDiffSucess->count;
+            }
         }
+//        $date_arr = array();
+//        for ($i = 0; $i<7; $i++ ){
+//            $key = date('dmY', strtotime('-'.$i.' days'));
+//            $date_arr[$key] = date('d/m/Y', strtotime('-'.$i.' days'));
+//        }
         foreach ($date_arr as $drk => $drv ){ ?>
             <li class="nav-item <?php if ($drk == date('dmY')){ echo 'active';} ?>">
-                <a class="nav-link" id="<?= $drk ?>-tab" data-toggle="tab" href="#<?= $drk ?>" role="tab" aria-controls="<?= $drk ?>" aria-selected="true"><?= $drv; ?><?php if($drk == '07092022'){echo ' <span style="color:red;">(Chưa hoàn tất)</span>';} ?></a>
+                <a class="nav-link" id="<?= $drk ?>-tab" data-toggle="tab" href="#<?= $drk ?>" role="tab" aria-controls="<?= $drk ?>" aria-selected="true"><?= $drv; ?><?php if ($date_ar_countr[$drk] > 0){ ?><span style="color:red; font-weight: bold;"> (<?php  echo $date_ar_countr[$drk];?> chưa TT)</span><?php } ?>-<?php if ($date_ar_diff[$drk] > 0){ ?><span style="color:orange; font-weight: bold;"> (<?php  echo $date_ar_diff[$drk];?>)</span><?php } ?></a>
             </li>
         <?php }
         ?>
     </ul>
     <div class="tab-content" id="myTabContent">
         <?php
+
         $tt = 1;
         foreach ($date_arr as $drk => $drv ){
             $noi_dung_user = $c_admin->getUserOrder($drk);

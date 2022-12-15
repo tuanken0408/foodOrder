@@ -8,6 +8,15 @@
 include "model/m_admin.php";
 include "../models/pager.php";
 class C_admin{
+    public function index2($date=0)
+    {
+        $m_tintuc = new M_admin();
+        $user = $m_tintuc->getUserOrder($date);
+        $userUnPaid = $m_tintuc->getUserOrderUnpaid($date);
+        $userDiffSucess = $m_tintuc->getUserOrderDiffSuccess($date);
+        return array('user'=>$user,'userUnPaid'=>$userUnPaid,'userDiffSucess'=>$userDiffSucess);
+    }
+
     public function getTheLoaiAd(){
         $m_admin = new M_admin();
         $theloai = $m_admin->getTheLoaiAdmin();

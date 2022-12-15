@@ -30,6 +30,16 @@ if (isset($_GET['confirm_finish_cancel'])){
     $c_admin->confirmFinishCancel();
 }
 
+$hienthi = 9;
+
+$staus = array(
+    1 => "Đang đặt",
+    2 => "Đã hoàn tất thanh toán",
+    3 => "Đã chuyển khoản, chờ xác nhận",
+    4 => "Đã hủy",
+    5 => "Chưa thanh toán",
+);
+
 //print_r($list);
 
 
@@ -69,7 +79,7 @@ if (!isset( $_SESSION['id_user'])){
 </head>
 <body>
 <div class="content">
-    <div><h3>Chào <?php echo $_SESSION['user_name'] ?> đến với trang Admin</h3></div>
+    <div><h3>Chào <?php echo $_SESSION['user_name'] ?> đến với trang Admin <a href="https://noithatlonghuyen.com/DatCom">B</a></h3> </div>
     <nav class="navbar navbar-default container col-md-2">
         <div class="row">
             <div class="container-fluid">

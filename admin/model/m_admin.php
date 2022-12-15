@@ -130,6 +130,23 @@ class M_admin extends database{
         return $this->loadRow(array($Status));
     }
 
+    public function getUserOrderUnpaid($date){
+        if ($date == 0){
+            $date = date('dmY');
+        }
+        $sql = "SELECT COUNT(*) AS count  FROM order_user  WHERE MaMenu = '$date'  AND Status_od <> 4 AND Status_od <> 2 AND Status_od <> 3";
+        $this->setQuery($sql);
+        return $this->loadRow();
+    }
+    public function getUserOrderDiffSuccess($date){
+        if ($date == 0){
+            $date = date('dmY');
+        }
+        $sql = "SELECT COUNT(*) AS count  FROM order_user  WHERE MaMenu = '$date'  AND  Status_od <> 2 AND Status_od <> 4 ";
+        $this->setQuery($sql);
+        return $this->loadRow();
+    }
+
     public function confirmPaid(){
         $id = $_GET['confirm_paid'];
         $sql = "UPDATE order_user SET Status_od = 2 WHERE id = $id";
