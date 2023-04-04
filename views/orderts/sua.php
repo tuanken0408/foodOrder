@@ -143,7 +143,7 @@ if(isset($_POST['sua'])){
 
     $('#soluong').keyup(function () {
         var soluong = $('#soluong').val();
-        var data = soluong*30000;
+        var data = soluong*35000;
         $('#tongtien').val(data);
         $('#tongtien_display').html(data.toLocaleString('vi-VN')+' đ');
     });

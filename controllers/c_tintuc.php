@@ -83,14 +83,24 @@ class C_tintuc{
     }
     public function addOrder($HoTen,$SoLuong,$TongTien,$MoTa,$Status,$isVH){
         $m_tintuc = new M_tintuc();
-        $them = $m_tintuc->addOrderMenu($HoTen,$SoLuong,$TongTien,$MoTa,$Status,$isVH);
-        if ($them >0){
-            $_SESSION['them_win']="Thêm thành công";
-            header('location:?success=ok');
-        }else{
-            $_SESSION['error'] = "Thêm ko thành công";
+        $check = $m_tintuc->getImageMenu();
+        if($check->HinhStatus == 1){
+            $_SESSION['user_error'] = "Đã chốt cơm rùi, bạn quá đen";
             header('location:?success=notok');
+            unset($_SESSION['them_win']);
+        }else{
+            $them = $m_tintuc->addOrderMenu($HoTen,$SoLuong,$TongTien,$MoTa,$Status,$isVH);
+            if ($them >0){
+                $_SESSION['them_win']="Thêm thành công";
+                unset($_SESSION['user_error']);
+                header('location:?success=ok');
+            }else{
+                $_SESSION['error'] = "Thêm ko thành công";
+                header('location:?success=notok');
+            }
         }
+
+
     }
     public function addOrder2($HoTen,$SoLuong,$TongTien,$MoTa,$Status){
         $m_tintuc = new M_tintuc();

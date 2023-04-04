@@ -13,7 +13,11 @@ if (isset($_GET['confirm_paid'])){
 if (isset($_GET['confirm_unpaid'])){
     $c_admin->confirmUnPaid();
 }
-$hienthi = 9;
+if (isset($_GET['hienthi'])){
+    $hienthi = $_GET['hienthi'];
+}else{
+    $hienthi = 9;
+}
 ini_set('display_errors', false);
 error_reporting(0);
 ?>

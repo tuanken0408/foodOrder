@@ -30,7 +30,11 @@ if (isset($_GET['confirm_finish_cancel'])){
     $c_admin->confirmFinishCancel();
 }
 
-$hienthi = 9;
+if (isset($_GET['hienthi'])){
+    $hienthi = $_GET['hienthi'];
+}else{
+    $hienthi = 9;
+}
 
 $staus = array(
     1 => "Đang đặt",

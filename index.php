@@ -15,7 +15,11 @@ if ($image_menu->HinhStatus == 1){
 }else{
     $chot = false;
 }
-$hienthi = 9;
+if (isset($_GET['hienthi'])){
+    $hienthi = $_GET['hienthi'];
+}else{
+    $hienthi = 12;
+}
 //    UPDATE `order_user` SET `Status_od`=2 WHERE `Status_od`=3 AND `MaMenu`= '14092022'
 //    UPDATE `order_user` SET `Status_od`=5 WHERE `Status_od`=1 AND `MaMenu`= '14092022'
 $staus = array(
