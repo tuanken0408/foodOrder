@@ -135,12 +135,12 @@ if(isset($_GET['view']) && $_GET['view'] == 'orderts/sua'){
             <div class="col-md-1"></div>
             <div class="col-md-5">
                 <form method="post" action="#">
-                    <h2 style="font-weight: bold; color: red">ĐẶT SỮA CHUA TRÂN CHÂu HẠ LONG NGÀY <?= date('d/m/Y'); ?> (<span id="demo_timer">14h45</span>)</h2>
+                    <h2 style="font-weight: bold; color: red">ĐẶT ĐỒ ĂN UỐNG SINH NHẬT A NHÃ ngày <?= date('d/m/Y'); ?> (<span id="demo_timer">14h45</span>)</h2>
                     <blockquote class="font12">
                         <h5 class="mrtop0 bold blueFont"><i class="glyphicon glyphicon-info-sign"></i> Lưu ý:</h5>
                         <h5>- Văn minh lịch sự, không sửa hàng của đồng nghiệp.</h5>
                         <h5>- Thời hạn đăng ký đến 14h45.</h5>
-                        <h5><strong style="color: red;">Hôm nay em Đức BA mời mọi người sinh nhật bù ạ</h5>
+                        <h5><strong style="color: red;">Hôm nay a Nhã mời mọi người nhân hậu sinh nhật ạ</h5>
 
                         <!--                        <a href="#" id="pop">-->
                         <!--                            <img id="imageresource" src="public/image/menu/--><?php //echo $image_menu->HinhMenu ?><!--" style="max-height: 600px; float: right">-->
@@ -167,9 +167,17 @@ if(isset($_GET['view']) && $_GET['view'] == 'orderts/sua'){
                         <label for="hoten">Họ và tên</label>
                         <input type="text" class="form-control" name="hoten" id="hoten" placeholder="Họ và Tên" required>
                     </div>
-                    <div class="form-group hide">
-                        <label for="soluong">Số suất đặt</label>
-                        <input type="text" class="form-control" name="soluong" id="soluong" value="1">
+<!--                    <div class="form-group hide">-->
+<!--                        <label for="soluong">Số suất đặt</label>-->
+                        <input type="hidden" class="form-control" name="soluong" id="soluong" value="1">
+<!--                    </div>-->
+                    <div class="form-group">
+                        <label for="hoten">Link Mixue</label>
+                        <a href="https://shopeefood.vn/ha-noi/tra-sua-mixue-19-mai-dong">Xem menu MIXUE tại đây</a>
+                    </div>
+                    <div class="form-group">
+                        <label for="hoten">Link TocoToco</label>
+                        <a href="https://shopeefood.vn/ha-noi/tra-sua-tocotoco-539-linh-nam">Xem menu TOCO tại đây</a>
                     </div>
                     <div class="form-group hide">
                         <label for="soluong">Tổng tiền</label>
@@ -177,8 +185,8 @@ if(isset($_GET['view']) && $_GET['view'] == 'orderts/sua'){
                         <input type="hidden" class="form-control" name="tongtien" id="tongtien" value="0">
                     </div>
                     <div class="form-group">
-                        <label for="mota">Ghi chú </label>
-                        <textarea class="form-control" id="mota" name="mota" rows="7" placeholder="mọi người thêm toping ạ"></textarea>
+                        <label for="mota">Tên đồ uống + ghi chú + topping </label>
+                        <textarea class="form-control" id="mota" name="mota" rows="4" placeholder=""></textarea>
                     </div>
                     <!--                   <div class="form-group">-->
                     <!--                       <label for="soluong">Bonus</label>-->
