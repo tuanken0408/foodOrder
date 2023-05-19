@@ -79,12 +79,19 @@ if (!isset( $_SESSION['id_user'])){
     <script src="../public/js/jquery.js">sss</script>
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="../public/js/my.js"></script>
-    <![endif]-->
+    <style>
+        @media (max-width: 480px) {
+            .mobile-min-h {
+                min-height: unset;
+            }
+        }
+
+    </style>
 </head>
 <body>
 <div class="content">
     <div><h3>Chào <?php echo $_SESSION['user_name'] ?> đến với trang Admin <a href="https://noithatlonghuyen.com/DatCom">B</a></h3> </div>
-    <nav class="navbar navbar-default container col-md-2">
+    <nav class="navbar navbar-default container col-md-2 mobile-min-h">
         <div class="row">
             <div class="container-fluid">
 

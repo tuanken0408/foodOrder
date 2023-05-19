@@ -83,39 +83,6 @@ if(isset($_POST['them'])){
     <!--[if lt IE 9]>
     <![endif]-->
     <style>
-    .banner-home-2-custom img {
-        max-width: 100%;
-        max-height: 100%;
-    }
-    .position-relative {
-        position: relative;
-    }
-        .position-absolute {
-            position: absolute;
-        }
-    .position-absolute-1 {
-        top: 46%;
-        left: 16%;
-        width: 32%;
-    }
-    .position-absolute-2 {
-        bottom: 4%;
-        left: 2%;
-        width: 20%;
-    }
-    .position-absolute-3 {
-        bottom: 4%;
-        left: 23.5%;
-        width: 20%;
-    }
-    .position-absolute-4 {
-        bottom: 4%;
-        right: 35%;
-        width: 20%;
-    }
-    .show-mobile {
-        display: none;
-    }
     @media (max-width: 480px) {
         .hide-mobile {
             display: none;
@@ -196,7 +163,7 @@ if(isset($_POST['them'])){
                 <!--               <img src="http://localhost/foodorder2/public/image/menu/2a8f3c5ecab80fe656a9.jpg" class="img-responsive" alt="..." style="max-height: 600px; float: right">-->
                 <!--               <img src="public/image/menu/--><?php //echo $image_menu->HinhMenu ?><!--" class="img-responsive" alt="..." style="max-height: 600px; float: right">-->
                 <a href="#" id="pop">
-                    <img id="imageresource" src="public/image/menu/<?php echo $image_menu->HinhMenu ?>" style="max-height: 500px; float: right">
+                    <img id="imageresource" src="public/image/menu/<?php echo $image_menu->HinhMenu ?>" style="max-height: 500px; float: right; width: 100%;">
                 </a>
                 <a href="#" id="pop">
                     <img id="imageresource" src="public/image/menu/image2.jpg" style="max-height: 500px; width: 100%; float: right">
