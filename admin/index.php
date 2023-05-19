@@ -33,7 +33,7 @@ if (isset($_GET['confirm_finish_cancel'])){
 if (isset($_GET['hienthi'])){
     $hienthi = $_GET['hienthi'];
 }else{
-    $hienthi = 9;
+    $hienthi = 15;
 }
 
 $staus = array(
@@ -145,6 +145,15 @@ if (!isset( $_SESSION['id_user'])){
     </div>
 </div>
 <script>
+    $('a.nav-link[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var targetId = e.target.getAttribute('href');
+        history.replaceState(null, null, targetId);
+    });
+    var hash = window.location.hash;
+    if (hash) {
+        $('a.nav-link[href="' + hash + '"]').tab('show');
+    }
+
     function confirm_finish(){
         if(confirm("Chốt cơm hôm nay") === true){
             window.location.href = '?view=menu/ds&confirm_finish=1';

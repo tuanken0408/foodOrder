@@ -152,8 +152,15 @@ class C_tintuc{
     public function Cancel(){
         $id_order = $_GET['cancel'];
         $m_tintuc = new M_tintuc();
-        $StatusOrder = $m_tintuc->updateStatusCancel($id_order);
-        return array('StatusOrder'=>$StatusOrder);
+        $check = $m_tintuc->getImageMenu();
+        if($check->HinhStatus == 1){
+            $_SESSION['user_error'] = "Đã chốt cơm rùi, bạn ko hủy đc nhé, bạn đen lắm";
+            header('location:?success=notok');
+            unset($_SESSION['them_win']);
+        }else{
+            $StatusOrder = $m_tintuc->updateStatusCancel($id_order);
+            return array('StatusOrder'=>$StatusOrder);
+        }
     }
     public function Cancel2(){
         $id_order = $_GET['cancel'];
@@ -172,19 +179,26 @@ class C_tintuc{
     }
     public function updateOrder($id,$HoTen,$SoLuong,$TongTien,$Mota,$isVH){
         $m_tintuc = new M_tintuc();
-        $sua = $m_tintuc->updateOrderUser($id,$HoTen,$SoLuong,$TongTien,$Mota,$isVH);
-        if (isset($_SESSION['them_win'])){
+        $check = $m_tintuc->getImageMenu();
+        if($check->HinhStatus == 1){
+            $_SESSION['user_error'] = "Đã chốt cơm rùi, bạn ko sửa được nữa, bạn quá đen";
+            header('location:?success=notok');
             unset($_SESSION['them_win']);
-        }
-        if ($sua >0){
-            $_SESSION['sua_win']="Sửa thành công";
-            header('location:?success=ok');
-            if (isset($_SESSION['error'])){
-                unset($_SESSION['error']);
-            }
         }else{
-            $_SESSION['error'] = "Sửa ko thành công";
-            header('ocation:?success=notok');
+            $sua = $m_tintuc->updateOrderUser($id,$HoTen,$SoLuong,$TongTien,$Mota,$isVH);
+            if (isset($_SESSION['them_win'])){
+                unset($_SESSION['them_win']);
+            }
+            if ($sua >0){
+                $_SESSION['sua_win']="Sửa thành công";
+                header('location:?success=ok');
+                if (isset($_SESSION['error'])){
+                    unset($_SESSION['error']);
+                }
+            }else{
+                $_SESSION['error'] = "Sửa ko thành công";
+                header('ocation:?success=notok');
+            }
         }
     }
     public function updateOrder2($id,$HoTen,$SoLuong,$TongTien,$Mota){

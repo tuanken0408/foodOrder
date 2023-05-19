@@ -82,7 +82,50 @@ if(isset($_POST['them'])){
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <![endif]-->
+    <style>
+    .banner-home-2-custom img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .position-relative {
+        position: relative;
+    }
+        .position-absolute {
+            position: absolute;
+        }
+    .position-absolute-1 {
+        top: 46%;
+        left: 16%;
+        width: 32%;
+    }
+    .position-absolute-2 {
+        bottom: 4%;
+        left: 2%;
+        width: 20%;
+    }
+    .position-absolute-3 {
+        bottom: 4%;
+        left: 23.5%;
+        width: 20%;
+    }
+    .position-absolute-4 {
+        bottom: 4%;
+        right: 35%;
+        width: 20%;
+    }
+    .show-mobile {
+        display: none;
+    }
+    @media (max-width: 480px) {
+        .hide-mobile {
+            display: none;
+        }
+        .show-mobile {
+            display: block;
+        }
+    }
 
+    </style>
 </head>
 
 <body>
@@ -284,7 +327,6 @@ if(isset($_POST['them'])){
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Phòng</th>
                                     <th scope="col">Họ Tên</th>
                                     <th scope="col">Số suất đặt</th>
                                     <th scope="col">Ghi chú</th>
@@ -303,7 +345,6 @@ if(isset($_POST['them'])){
                                     foreach ($user as $u){  ?>
                                         <tr class="<?php if ($u->Status_od == 5){ echo 'none-payment';} ?>">
                                             <th scope="row"><?= $t ?></th>
-                                            <td><?php  if ($u->isVH == '1'){echo '<span style="color: #0000ff">Vận Hành</span>';}else{echo 'Kỹ Thuật';} ?></td>
                                             <td><?= $u->HoTen; ?></td>
                                             <td><?= $u->SoLuong; ?></td>
                                             <td><?= $u->Mota; ?></td>
@@ -351,7 +392,6 @@ if(isset($_POST['them'])){
                                         </tr>
                                         <?php $t+=1; $t_TongTien = $t_TongTien + $u->TongTien; $t_SoLuong = $t_SoLuong + $u->SoLuong; } ?>
                                     <tr>
-                                        <td></td>
                                         <td></td>
                                         <td><strong>Tổng số suất</strong></td>
                                         <td><strong><?= $t_SoLuong; ?></strong></td>

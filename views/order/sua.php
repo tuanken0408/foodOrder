@@ -103,9 +103,6 @@ if(isset($_POST['sua'])){
                     <label for="hoten">Họ và tên</label>
                     <input type="text" class="form-control" name="hoten" id="hoten" placeholder="Họ và Tên" value="<?= $chitiet->HoTen; ?>" required>
                 </div>
-<!--                <div class="form-group">-->
-<!--                    <input type="checkbox" id="isVH" name="isVH" value="--><?//= $chitiet->isVH; ?><!--" --><?php //if ($chitiet->isVH == '1'){echo ' checked';} ?><!--><label for="isVH">&nbsp; Vận Hành (VH đặt cơm thì click vào đây)</label>-->
-<!--                </div>-->
                 <div class="form-group">
                     <label for="soluong">Số suất đặt</label>
                     <input type="text" class="form-control" name="soluong" id="soluong" value="<?= $chitiet->SoLuong; ?>" required>
@@ -115,14 +112,6 @@ if(isset($_POST['sua'])){
                     <p id="tongtien_display"></p>
                     <input type="hidden" class="form-control" name="tongtien" id="tongtien" value="<?= $chitiet->TongTien; ?>">
                 </div>
-<!--                <div class="form-group">-->
-<!--                    <input class="reg_cash" type="checkbox" name="reg_cash" value="1"><label for="reg_cash">&nbsp; Đặt customize (dành cho ai thêm cơm, thêm thức ăn,..)</label>-->
-<!--                </div>-->
-<!--                <div class="form-group reg_cash_amount" style="display: none">-->
-<!--                    <label for="tongtien2">Số tiền mong muốn</label>-->
-<!--                    <input type="hidden" class="form-control" name="tongtien2" id="tongtien2" placeholder="10k, 20k, 50k,..." value="--><?//= $chitiet->TongTien; ?><!--">-->
-<!--                    <input type="text" class="form-control" name="tongtien_display2" id="tongtien_display2" placeholder="--><?//= $chitiet->TongTien; ?><!--">-->
-<!--                </div>-->
                 <div class="form-group">
                     <label for="mota">Ghi chú </label>
                     <textarea class="form-control" id="mota" name="mota" rows="2" value="<?= $chitiet->Mota; ?>"><?= $chitiet->Mota; ?></textarea>

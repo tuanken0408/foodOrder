@@ -149,15 +149,15 @@ class C_admin{
         $m_admin->confirmFinishCancel();
         header('location:?view=menu/ds');
     }
-    public function confirmPaid(){
+    public function confirmPaid($link){
         $m_admin = new M_admin();
         $m_admin->confirmPaid();
-        header('location:?view=order/ds');
+        header('location:?view=order/ds#'.$link);
     }
-    public function confirmUnPaid(){
+    public function confirmUnPaid($link){
         $m_admin = new M_admin();
         $m_admin->confirmUnPaid();
-        header('location:?view=order/ds');
+        header('location:?view=order/ds#'.$link);
     }
 
     public function stripUnicode($str){

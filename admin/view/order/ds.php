@@ -8,15 +8,15 @@ $staus = array(
     5 => "Chưa thanh toán",
 );
 if (isset($_GET['confirm_paid'])){
-    $c_admin->confirmPaid();
+    $c_admin->confirmPaid($_GET['link']);
 }
 if (isset($_GET['confirm_unpaid'])){
-    $c_admin->confirmUnPaid();
+    $c_admin->confirmUnPaid($_GET['link']);
 }
 if (isset($_GET['hienthi'])){
     $hienthi = $_GET['hienthi'];
 }else{
-    $hienthi = 9;
+    $hienthi = 15;
 }
 ini_set('display_errors', false);
 error_reporting(0);
@@ -109,11 +109,11 @@ error_reporting(0);
                                 </td>
                                 <td>
                                     <?php if ($u->Status_od == 3 || $u->Status_od == 1 || $u->Status_od == 5){ ?>
-                                        <a href="?view=order/ds&confirm_paid=<?php echo $u->id?>" class="label label-primary">Xác nhận đã thanh toán</a>
+                                        <a href="?view=order/ds&confirm_paid=<?php echo $u->id?>&link=<?= $drk ?>" class="label label-primary">Xác nhận đã thanh toán</a>
                                     <?php } ?>
 
                                     <?php if ($u->Status_od == 1 ){ ?>
-                                        <a href="?view=order/ds&confirm_unpaid=<?php echo $u->id?>" class="label label-danger">Make chưa thanh toán</a>
+                                        <a href="?view=order/ds&confirm_unpaid=<?php echo $u->id?>&link=<?= $drk ?>" class="label label-danger">Make chưa thanh toán</a>
                                     <?php } ?>
                                 </td>
                             </tr>
