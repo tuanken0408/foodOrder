@@ -38,6 +38,7 @@ if (isset($_GET['cancel'])){
 if(isset($_POST['them'])){
     $HoTen = $_POST['hoten'];
     $isVH = $_POST['isVH'];
+    $isNuoc = $_POST['isNuoc'];
     $SoLuong = $_POST['soluong'];
 //    $TongTien = $_POST['tongtien'];
     $TongTien2 = $_POST['tongtien2'];
@@ -46,6 +47,9 @@ if(isset($_POST['them'])){
     }else{
         if ($SoLuong < 1){ $SoLuong = 1; }
         $TongTien = $SoLuong*35000;
+    }
+    if (isset($isNuoc) && $isNuoc > 0){
+        $TongTien = $TongTien + 15000;
     }
     $MoTa = $_POST['mota'];
     $Staus = 1;
@@ -222,9 +226,9 @@ if(isset($_POST['them'])){
                         <label for="hoten">Họ và tên</label>
                         <input type="text" class="form-control" name="hoten" id="hoten" placeholder="Họ và Tên" required>
                     </div>
-<!--                    <div class="form-group">-->
-<!--                        <input type="checkbox" id="isVH" name="isVH" value="1"><label for="isVH">&nbsp; Vận Hành (VH đặt cơm thì click vào đây)</label>-->
-<!--                    </div>-->
+                    <div class="form-group">
+                        <input type="checkbox" id="isNuoc" name="isNuoc" value="1"><label for="isNuoc">&nbsp; Thêm nước ép</label>
+                    </div>
                     <div class="form-group">
                         <label for="soluong">Số suất đặt</label>
                         <input type="text" class="form-control" name="soluong" id="soluong" required>
