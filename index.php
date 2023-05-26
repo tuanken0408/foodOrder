@@ -147,7 +147,7 @@ if(isset($_POST['them'])){
     <div class="space20"></div>
     <div class="row main-left">
         <div class="col-md-1"></div>
-        <div class="col-md-10">
+        <div class="col-md-12">
             <?php
             if (isset($_SESSION['user_error']) && isset($_GET['success']) ){
                 echo '<div class="alert alert-danger">'.$_SESSION['user_error'].'</div>';
@@ -163,11 +163,12 @@ if(isset($_POST['them'])){
                 unset($_SESSION['sua_win']);
             }
             ?>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <!--               <img src="http://localhost/foodorder2/public/image/menu/2a8f3c5ecab80fe656a9.jpg" class="img-responsive" alt="..." style="max-height: 600px; float: right">-->
                 <!--               <img src="public/image/menu/--><?php //echo $image_menu->HinhMenu ?><!--" class="img-responsive" alt="..." style="max-height: 600px; float: right">-->
                 <a href="#" id="pop">
-                    <img id="imageresource" src="public/image/menu/<?php echo $image_menu->HinhMenu ?>" style="max-height: 500px; float: right; width: 100%;">
+                       <img src="http://localhost/foodOrder/public/image/menu/260522.jpg" class="img-responsive" alt="..." style="max-height: 500px; float: right; width: 100%;">
+<!--                    <img id="imageresource" src="public/image/menu/--><?php //echo $image_menu->HinhMenu ?><!--" style="max-height: 500px; float: right; width: 100%;">-->
                 </a>
                 <a href="#" id="pop">
                     <img id="imageresource" src="public/image/menu/image2.jpg" style="max-height: 500px; width: 100%; float: right">
@@ -264,6 +265,20 @@ if(isset($_POST['them'])){
                     <?php } ?>
                     <a href="#list_user" class="btn btn-success">Danh sách order hôm nay</a>
                 </form>
+            </div>
+            <div class="col-md-3" style="border: 1px solid #ddd; width: 367px; min-height: 576px">
+                <h2 style="font-weight: bold; color: red; font-size: 15px">DANH SÁCH CHƯA THANH TOÁN TIỀN CƠM</h2>
+                <div style="width: 100%;  height: 30px"></div>
+                <?php
+                    $countUnPaid = $c_tintuc->index2('');
+                    $userNameUnPaid = $countUnPaid['userNameUnPaid'];
+//                    echo("<pre>");
+//                    var_dump($userNameUnPaid);
+//                    die();
+                ?>
+                <?php foreach ($userNameUnPaid as $val) { ?>
+                    <p><?= $val->Hoten ?> - <?= date('d-m-Y', strtotime($val->created_at)) ?> - <?= number_format($val->TongTien) ?> <span style="color: red"> - Chưa thanh toán</span></p>
+                <?php } ?>
             </div>
             <div class="col-md-12" style="height: 50px"></div>
             <div style="clear:both">

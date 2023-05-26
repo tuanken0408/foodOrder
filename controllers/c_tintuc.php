@@ -32,7 +32,8 @@ class C_tintuc{
         $m_tintuc = new M_tintuc();
         $user = $m_tintuc->getUserOrder($date);
         $userUnPaid = $m_tintuc->getUserOrderUnpaid($date);
-        return array('user'=>$user,'userUnPaid'=>$userUnPaid);
+        $userNameUnPaid = $m_tintuc->getUserNameUnpaid();
+        return array('user'=>$user,'userUnPaid'=>$userUnPaid,'userNameUnPaid'=>$userNameUnPaid);
     }
     public function index3($date=0)
     {

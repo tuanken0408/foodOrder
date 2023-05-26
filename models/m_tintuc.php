@@ -53,6 +53,11 @@ class M_tintuc extends database{
         $this->setQuery($sql);
         return $this->loadRow();
     }
+    public function getUserNameUnpaid(){
+        $sql = "SELECT Hoten, TongTien, created_at  FROM order_user  WHERE Status_od = 5";
+        $this->setQuery($sql);
+        return $this->loadAllRows();
+    }
 
     public function getUserOrder2($date){
         if ($date == 0){
